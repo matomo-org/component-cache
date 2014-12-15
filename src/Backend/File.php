@@ -92,7 +92,7 @@ class File extends PhpFileCache implements Backend
         $path = $this->directory . DIRECTORY_SEPARATOR;
         $id   = preg_replace('@[\\\/:"*?<>|]+@', '', $id);
 
-        return $path . DIRECTORY_SEPARATOR . $id . $this->extension;
+        return $path . $id . $this->extension;
     }
 
     private function opCacheInvalidate($filepath)

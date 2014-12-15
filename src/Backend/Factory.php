@@ -50,8 +50,13 @@ class Factory
             throw new \InvalidArgumentException('RedisCache is not configured. Please provide at least a host and a port');
         }
 
+        $timeout = 0.0;
+        if (array_key_exists('timeout', $options)) {
+            $timeout = $options['timeout'];
+        }
+
         $redis = new \Redis();
-        $redis->connect($options['host'], $options['port'], $options['timeout']);
+        $redis->connect($options['host'], $options['port'], $timeout);
 
         if (!empty($options['password'])) {
             $redis->auth($options['password']);
