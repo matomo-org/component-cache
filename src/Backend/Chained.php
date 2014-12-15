@@ -20,6 +20,11 @@ class Chained implements Backend
      */
     private $backends = array();
 
+    /**
+     * Initializes the chained backend.
+     *
+     * @param Backend[] $backends An array of backends to use. They should be ordered from fastest to slowest.
+     */
     public function __construct($backends = array())
     {
         $this->backends = array_values($backends);

@@ -54,6 +54,8 @@ interface Backend
 
     /**
      * Flushes all cache entries from the cache.
+     *
+     * @return boolean
      */
     public function doFlush();
 
