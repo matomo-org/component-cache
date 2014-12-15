@@ -30,8 +30,12 @@ class Transient
     }
 
     /**
-     * Get the content related to the current cache key. Make sure to call the method {@link has()} to verify whether
-     * there is actually any content set under this cache key.
+     * Fetches an entry from the cache.
+     *
+     * Make sure to call the method {@link has()} to verify whether there is actually any content set under this
+     * cache id.
+     *
+     * @param string $id The cache id.
      * @return mixed
      */
     public function fetch($id)
@@ -40,7 +44,9 @@ class Transient
     }
 
     /**
-     * Check whether any content was actually stored for the current cache key.
+     * Tests if an entry exists in the cache.
+     *
+     * @param string $id The cache id.
      * @return bool
      */
     public function contains($id)
@@ -49,8 +55,10 @@ class Transient
     }
 
     /**
-     * Set (overwrite) any content related to the current set cache key.
-     * @param $content
+     * Puts data into the cache.
+     *
+     * @param string $id The cache id.
+     * @param mixed $content
      * @return boolean
      */
     public function save($id, $content)
@@ -61,6 +69,7 @@ class Transient
     /**
      * Deletes a cache entry.
      *
+     * @param string $id The cache id.
      * @return boolean TRUE if the cache entry was successfully deleted, FALSE otherwise.
      */
     public function delete($id)

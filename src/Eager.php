@@ -12,10 +12,10 @@ use Piwik\Cache;
 use Piwik\Cache\Backend;
 
 /**
- * This cache uses one "cache" item for all keys it contains.
+ * This cache uses one "cache" entry for all cache entries it contains.
  *
  * This comes handy for things that you need very often, nearly in every request. Instead of having to read eg.
- * a hundred caches from file we only load one file which contains the hundred keys. Should be used only for things
+ * a hundred caches from file we only load one file which contains the hundred cache ids. Should be used only for things
  * that you need very often and only for cache entries that are not too large to keep loading and parsing the single
  * cache entry fast.
  *
@@ -24,7 +24,7 @@ use Piwik\Cache\Backend;
  * // $cache->save('myid', 'test');
  *
  * // ... at some point or at the end of the request
- * $cache->persistCacheIfNeeded(43200);
+ * $cache->persistCacheIfNeeded($lifeTime = 43200);
  */
 class Eager
 {
@@ -36,6 +36,12 @@ class Eager
     private $content = array();
     private $isDirty = false;
 
+    /**
+     * Loads the cache entries from the given backend using the given storageId.
+     *
+     * @param Backend $storage
+     * @param $storageId
+     */
     public function __construct(Backend $storage, $storageId)
     {
         $this->storage = $storage;
@@ -49,9 +55,13 @@ class Eager
     }
 
     /**
-     * Get the content related to the current cache key. Make sure to call the method {@link has()} to verify whether
-     * there is actually any content set under this cache key.
-     * @return mixed
+     * Fetches an entry from the cache.
+     *
+     * Make sure to call the method {@link contains()} to verify whether there is actually any content saved under
+     * this cache id.
+     *
+     * @param string $id The cache id.
+     * @return int|float|string|boolean|array
      */
     public function fetch($id)
     {
@@ -59,7 +69,9 @@ class Eager
     }
 
     /**
-     * Check whether any content was actually stored for the current cache key.
+     * Tests if an entry exists in the cache.
+     *
+     * @param string $id The cache id.
      * @return bool
      */
     public function contains($id)
@@ -68,8 +80,10 @@ class Eager
     }
 
     /**
-     * Set (overwrite) any content related to the current set cache key.
-     * @param $content
+     * Puts data into the cache.
+     *
+     * @param string $id The cache id.
+     * @param int|float|string|boolean|array $content
      * @return boolean
      */
     public function save($id, $content)
@@ -85,9 +99,10 @@ class Eager
     }
 
     /**
-     * Deletes a cache entry.
+     * Deletes one cache entry having the given id.
      *
-     * @return boolean TRUE if the cache entry was successfully deleted, FALSE otherwise.
+     * @param string $id The cache id.
+     * @return boolean TRUE if the cache actually contains this entry and if it was successfully deleted, FALSE otherwise.
      */
     public function delete($id)
     {
@@ -103,7 +118,7 @@ class Eager
     /**
      * Flushes all cache entries.
      *
-     * @return boolean TRUE if the cache entries were successfully flushed, FALSE otherwise.
+     * @return bool returns always TRUE after the cache was flushed.
      */
     public function flushAll()
     {
@@ -115,10 +130,16 @@ class Eager
         return true;
     }
 
-    public function persistCacheIfNeeded($ttl)
+    /**
+     * Will persist all previously made changes if there were any.
+     *
+     * @param int $lifeTime  The cache lifetime in seconds.
+     *                       If != 0, sets a specific lifetime for this cache entry (0 => infinite lifeTime).
+     */
+    public function persistCacheIfNeeded($lifeTime)
     {
         if ($this->isDirty) {
-            $this->storage->doSave($this->storageId, $this->content, $ttl);
+            $this->storage->doSave($this->storageId, $this->content, $lifeTime);
         }
     }
 

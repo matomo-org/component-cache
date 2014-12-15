@@ -27,10 +27,6 @@ class Factory
         return new NullCache();
     }
 
-    /**
-     * This cache will persist any set data in the configured backend.
-     * @return Backend
-     */
     public function buildChainedCache($options)
     {
         $backends = array();
@@ -72,10 +68,12 @@ class Factory
     }
 
     /**
-     * @param $type
-     * @param array $options
+     * Build a specific backend instance.
+     *
+     * @param string $type The type of backend you want to create. Eg 'array', 'file', 'chained', 'null', 'redis'.
+     * @param array $options An array of options for the backend you want to create.
      * @return Backend
-     * @throws Factory\BackendNotFoundException
+     * @throws Factory\BackendNotFoundException In case the given type was not found.
      */
     public function buildBackend($type, array $options)
     {

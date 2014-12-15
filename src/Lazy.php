@@ -14,6 +14,11 @@ class Lazy
 {
     private $backend;
 
+    /**
+     * Initializes the cache.
+     *
+     * @param Backend $backend Any backend that should be used to store / hold the cache entries.
+     */
     public function __construct(Backend $backend)
     {
         $this->backend = $backend;
@@ -22,6 +27,7 @@ class Lazy
     /**
      * Fetches an entry from the cache.
      *
+     * @param string $id The cache id.
      * @return mixed The cached data or FALSE, if no cache entry exists for the given id.
      */
     public function fetch($id)
@@ -34,6 +40,7 @@ class Lazy
     /**
      * Tests if an entry exists in the cache.
      *
+     * @param string $id The cache id.
      * @return boolean TRUE if a cache entry exists for the given cache id, FALSE otherwise.
      */
     public function contains($id)
@@ -48,7 +55,7 @@ class Lazy
      *
      * @param string $id       The cache id.
      * @param mixed  $data     The cache entry/data.
-     * @param int    $lifeTime The cache lifetime.
+     * @param int    $lifeTime The cache lifetime in seconds.
      *                         If != 0, sets a specific lifetime for this cache entry (0 => infinite lifeTime).
      *
      * @return boolean TRUE if the entry was successfully stored in the cache, FALSE otherwise.
@@ -68,6 +75,7 @@ class Lazy
     /**
      * Deletes a cache entry.
      *
+     * @param string $id The cache id.
      * @return boolean TRUE if the cache entry was successfully deleted, FALSE otherwise.
      */
     public function delete($id)

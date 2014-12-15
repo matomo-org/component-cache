@@ -2,9 +2,11 @@
 
 This is a PHP caching library based on [Doctrine cache](https://github.com/doctrine/cache) that supports different backends. 
 At [Piwik](http://piwik.org) we developed this library with the focus on speed as we make heavy use of caching and 
-sometimes fetch hundreds of entries from the cache.
+sometimes fetch hundreds of entries from the cache in one request.
 
 [![Build Status](https://travis-ci.org/piwik/component-cache.svg?branch=master)](https://travis-ci.org/piwik/component-cache)
+[![Coverage Status](https://coveralls.io/repos/piwik/component-cache/badge.png?branch=master)](https://coveralls.io/r/piwik/component-cache?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/piwik/component-cache/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/piwik/component-cache/?branch=master)
 
 ## Installation
 
@@ -126,7 +128,7 @@ $cache->save('myid', 'myvalue', $lifeTimeInSeconds = 300);
 $cache->flushAll();
 ```
 
-### Creating a eager cache
+### Creating an eager cache
 
 ```php
 $cache = new \Piwik\Cache\Eager($backend, $storageId = 'eagercache');

@@ -53,9 +53,7 @@ interface Backend
     public function doDelete($id);
 
     /**
-     * Retrieves cached information from the data store.
-     *
-     * @return array|null An associative array with server's statistics if available, NULL otherwise.
+     * Flushes all cache entries from the cache.
      */
     public function doFlush();
 
