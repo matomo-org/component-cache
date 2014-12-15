@@ -75,15 +75,18 @@ class Chained implements Backend
         return $stored;
     }
 
+    // returns true if was deleted from at least one backend, false if it was not present in any of those
     public function doDelete($id)
     {
+        $success = false;
+
         foreach ($this->backends as $backend) {
             if ($backend->doContains($id)) {
-                $backend->doDelete($id);
+                $success = $backend->doDelete($id) || $success;
             }
         }
 
-        return true;
+        return $success;
     }
 
     public function doFlush()
