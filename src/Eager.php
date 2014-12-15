@@ -20,8 +20,8 @@ use Piwik\Cache\Backend;
  * cache entry fast.
  *
  * $cache = new Eager($backend, $storageId = 'eagercache');
- * // $cache->get('my'id')
- * // $cache->set('myid', 'test');
+ * // $cache->fetch('my'id')
+ * // $cache->save('myid', 'test');
  *
  * // ... at some point or at the end of the request
  * $cache->persistCacheIfNeeded(43200);
@@ -53,7 +53,7 @@ class Eager
      * there is actually any content set under this cache key.
      * @return mixed
      */
-    public function get($id)
+    public function fetch($id)
     {
         return $this->content[$id];
     }
@@ -62,7 +62,7 @@ class Eager
      * Check whether any content was actually stored for the current cache key.
      * @return bool
      */
-    public function has($id)
+    public function contains($id)
     {
         return array_key_exists($id, $this->content);
     }
@@ -72,7 +72,7 @@ class Eager
      * @param $content
      * @return boolean
      */
-    public function set($id, $content)
+    public function save($id, $content)
     {
         if (is_object($content)) {
             throw new \InvalidArgumentException('You cannot use this cache to cache an object, only arrays, strings and numbers. Have a look at Transient cache.');
@@ -91,7 +91,7 @@ class Eager
      */
     public function delete($id)
     {
-        if ($this->has($id)) {
+        if ($this->contains($id)) {
             $this->isDirty = true;
             unset($this->content[$id]);
             return true;

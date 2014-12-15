@@ -119,10 +119,10 @@ $factory = new \Piwik\Cache\Backend\Factory();
 $backend = $factory->buildBackend('file', array('directory' => '/path/to/cache'));
 
 $cache = new \Piwik\Cache\Lazy($backend);
-$cache->get('myid');
-$cache->has('myid');
+$cache->fetch('myid');
+$cache->contains('myid');
 $cache->delete('myid');
-$cache->set('myid', 'myvalue', $lifeTimeInSeconds = 300);
+$cache->save('myid', 'myvalue', $lifeTimeInSeconds = 300);
 $cache->flushAll();
 ```
 
@@ -130,10 +130,10 @@ $cache->flushAll();
 
 ```php
 $cache = new \Piwik\Cache\Eager($backend, $storageId = 'eagercache');
-$cache->get('myid');
-$cache->has('myid');
+$cache->fetch('myid');
+$cache->contains('myid');
 $cache->delete('myid');
-$cache->set('myid', new \stdClass());
+$cache->save('myid', new \stdClass());
 $cache->persistCacheIfNeeded($lifeTimeInSeconds = 300);
 $cache->flushAll();
 ```
@@ -144,10 +144,10 @@ It will cache all set cache entries under the cache entry `eagercache`.
 
 ```php
 $cache = new \Piwik\Cache\Transient();
-$cache->get('myid');
-$cache->has('myid');
+$cache->fetch('myid');
+$cache->contains('myid');
 $cache->delete('myid');
-$cache->set('myid', new \stdClass(), $lifeTimeInSeconds = 300);
+$cache->save('myid', new \stdClass(), $lifeTimeInSeconds = 300);
 $cache->flushAll();
 ```
 

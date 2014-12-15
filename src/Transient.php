@@ -34,7 +34,7 @@ class Transient
      * there is actually any content set under this cache key.
      * @return mixed
      */
-    public function get($id)
+    public function fetch($id)
     {
         return $this->backend->doFetch($id);
     }
@@ -43,7 +43,7 @@ class Transient
      * Check whether any content was actually stored for the current cache key.
      * @return bool
      */
-    public function has($id)
+    public function contains($id)
     {
         return $this->backend->doContains($id);
     }
@@ -53,7 +53,7 @@ class Transient
      * @param $content
      * @return boolean
      */
-    public function set($id, $content)
+    public function save($id, $content)
     {
         return $this->backend->doSave($id, $content);
     }

@@ -26,27 +26,27 @@ class TransientTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->cache = new Transient();
-        $this->cache->set($this->cacheId, $this->cacheValue);
+        $this->cache->save($this->cacheId, $this->cacheValue);
     }
 
-    public function test_get_shouldReturnFalse_IfNoSuchCacheIdExists()
+    public function test_fetch_shouldReturnFalse_IfNoSuchCacheIdExists()
     {
-        $this->assertFalse($this->cache->get('randomid'));
+        $this->assertFalse($this->cache->fetch('randomid'));
     }
 
-    public function test_get_shouldReturnTheCachedValue_IfCacheIdExists()
+    public function test_fetch_shouldReturnTheCachedValue_IfCacheIdExists()
     {
-        $this->assertEquals($this->cacheValue, $this->cache->get($this->cacheId));
+        $this->assertEquals($this->cacheValue, $this->cache->fetch($this->cacheId));
     }
 
-    public function test_has_shouldReturnFalse_IfNoSuchCacheIdExists()
+    public function test_contains_shouldReturnFalse_IfNoSuchCacheIdExists()
     {
-        $this->assertFalse($this->cache->has('randomid'));
+        $this->assertFalse($this->cache->contains('randomid'));
     }
 
-    public function test_has_shouldReturnTrue_IfCacheIdExists()
+    public function test_contains_shouldReturnTrue_IfCacheIdExists()
     {
-        $this->assertTrue($this->cache->has($this->cacheId));
+        $this->assertTrue($this->cache->contains($this->cacheId));
     }
 
     public function test_delete_shouldReturnTrue_OnSuccess()
@@ -65,7 +65,7 @@ class TransientTest extends \PHPUnit_Framework_TestCase
 
     public function test_delete_shouldNotDeleteAnyOtherCacheIds()
     {
-        $this->cache->set('anyother', 'myvalue');
+        $this->cache->save('anyother', 'myvalue');
         $this->assertHasCacheEntry($this->cacheId);
 
         $this->cache->delete($this->cacheId);
@@ -73,44 +73,44 @@ class TransientTest extends \PHPUnit_Framework_TestCase
         $this->assertHasCacheEntry('anyother');
     }
 
-    public function test_set_shouldOverwriteAnyValue_IfCacheIdAlreadyExists()
+    public function test_save_shouldOverwriteAnyValue_IfCacheIdAlreadyExists()
     {
         $this->assertHasCacheEntry($this->cacheId);
 
         $value = 'anyotherValuE';
-        $this->cache->set($this->cacheId, $value);
+        $this->cache->save($this->cacheId, $value);
 
-        $this->assertSame($value, $this->cache->get($this->cacheId));
+        $this->assertSame($value, $this->cache->fetch($this->cacheId));
     }
 
-    public function test_set_shouldBeAbleToSetArrays()
+    public function test_save_shouldBeAbleToSetArrays()
     {
         $value = array('anyotherE' => 'anyOtherValUE', 1 => array(2));
-        $this->cache->set($this->cacheId, $value);
+        $this->cache->save($this->cacheId, $value);
 
-        $this->assertSame($value, $this->cache->get($this->cacheId));
+        $this->assertSame($value, $this->cache->fetch($this->cacheId));
     }
 
-    public function test_set_shouldBeAbleToSetObjects()
+    public function test_save_shouldBeAbleToSetObjects()
     {
         $value = (object) array('anyotherE' => 'anyOtherValUE', 1 => array(2));
-        $this->cache->set($this->cacheId, $value);
+        $this->cache->save($this->cacheId, $value);
 
-        $this->assertSame($value, $this->cache->get($this->cacheId));
+        $this->assertSame($value, $this->cache->fetch($this->cacheId));
     }
 
-    public function test_set_shouldBeAbleToSetNumbers()
+    public function test_save_shouldBeAbleToSetNumbers()
     {
         $value = 5.4;
-        $this->cache->set($this->cacheId, $value);
+        $this->cache->save($this->cacheId, $value);
 
-        $this->assertSame($value, $this->cache->get($this->cacheId));
+        $this->assertSame($value, $this->cache->fetch($this->cacheId));
     }
 
     public function test_flush_shouldRemoveAllCacheIds()
     {
         $this->assertHasCacheEntry($this->cacheId);
-        $this->cache->set('mykey', 'myvalue');
+        $this->cache->save('mykey', 'myvalue');
         $this->assertHasCacheEntry('mykey');
 
         $this->cache->flushAll();
@@ -121,12 +121,12 @@ class TransientTest extends \PHPUnit_Framework_TestCase
 
     private function assertHasCacheEntry($cacheId)
     {
-        $this->assertTrue($this->cache->has($cacheId));
+        $this->assertTrue($this->cache->contains($cacheId));
     }
 
     private function assertHasNotCacheEntry($cacheId)
     {
-        $this->assertFalse($this->cache->has($cacheId));
+        $this->assertFalse($this->cache->contains($cacheId));
     }
 
 }
