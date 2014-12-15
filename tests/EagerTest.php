@@ -36,20 +36,7 @@ class EagerTest extends \PHPUnit_Framework_TestCase
         $this->backend = new ArrayCache();
         $this->backend->doSave($this->storageId, array($this->cacheId => $this->cacheValue));
 
-        $this->cache = $this->createEagerCache();
-        $this->cache->populateCache($this->backend, $this->storageId);
-    }
-
-    public function test_isPopulated_shouldNotBePopulatedByDefault()
-    {
-        $cache = $this->createEagerCache();
-
-        $this->assertFalse($cache->isPopulated());
-    }
-
-    public function test_isPopulated_shouldBePopulated_IfWasPopulateBefore()
-    {
-        $this->assertTrue($this->cache->isPopulated());
+        $this->cache = new Eager($this->backend, $this->storageId);
     }
 
     public function test_has_shouldReturnFalse_IfNoSuchCacheIdExists()
@@ -139,11 +126,13 @@ class EagerTest extends \PHPUnit_Framework_TestCase
         $this->assertHasCacheEntry($this->cacheId);
         $this->cache->set('mykey', 'myvalue');
         $this->assertHasCacheEntry('mykey');
+        $this->assertTrue($this->backend->doContains($this->storageId));
 
         $this->cache->flushAll();
 
         $this->assertHasNotCacheEntry($this->cacheId);
         $this->assertHasNotCacheEntry('mykey');
+        $this->assertFalse($this->backend->doContains($this->storageId)); // should also remove the storage entry
     }
 
     public function test_persistCacheIfNeeded_shouldActuallySaveValuesInBackend_IfThereWasSomethingSet()
@@ -182,23 +171,9 @@ class EagerTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->getContentOfStorage()); // should not have set the content of cache ($cacheId => $cacheValue)
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Cache was not populated
-     */
-    public function test_persistCacheIfNeeded_shouldFail_IfNeverPopulated()
-    {
-        $this->createEagerCache()->persistCacheIfNeeded(400);
-    }
-
     private function getContentOfStorage()
     {
         return $this->backend->doFetch($this->storageId);
-    }
-
-    private function createEagerCache()
-    {
-        return new Eager();
     }
 
     private function assertHasCacheEntry($cacheId)

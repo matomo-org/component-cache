@@ -129,13 +129,12 @@ $cache->flushAll();
 ### Creating a eager cache
 
 ```php
-$cache = new \Piwik\Cache\Eager();
-$cache->populate($backend, $cacheId = 'eagercache', $lifeTimeInSeconds = 300);
+$cache = new \Piwik\Cache\Eager($backend, $storageId = 'eagercache');
 $cache->get('myid');
 $cache->has('myid');
 $cache->delete('myid');
-$cache->set('myid', new \stdClass(), $lifeTimeInSeconds = 300);
-$cache->persistCacheIfNeeded();
+$cache->set('myid', new \stdClass());
+$cache->persistCacheIfNeeded($lifeTimeInSeconds = 300);
 $cache->flushAll();
 ```
 

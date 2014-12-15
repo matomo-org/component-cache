@@ -10,7 +10,6 @@ namespace Piwik\Cache;
 
 use Piwik\Cache;
 use Piwik\Cache\Backend;
-use RuntimeException;
 
 /**
  * This cache uses one "cache" item for all keys it contains.
@@ -20,16 +19,12 @@ use RuntimeException;
  * that you need very often and only for cache entries that are not too large to keep loading and parsing the single
  * cache entry fast.
  *
- * $cache = new Eager();
+ * $cache = new Eager($backend, $storageId = 'eagercache');
+ * // $cache->get('my'id')
+ * // $cache->set('myid', 'test');
  *
- * if (!$cache->isPopulated()) {
- *   $cache->populateCache($backend, $storageId = 'eagercache');
- *   // $cache->get('my'id')
- *   // $cache->set('myid', 'test');
- *
- *   // ... at the end of the request
- *   $cache->persistCacheIfNeeded(43200);
- * }
+ * // ... at some point or at the end of the request
+ * $cache->persistCacheIfNeeded(43200);
  */
 class Eager
 {
@@ -40,6 +35,18 @@ class Eager
     private $storageId;
     private $content = array();
     private $isDirty = false;
+
+    public function __construct(Backend $storage, $storageId)
+    {
+        $this->storage = $storage;
+        $this->storageId = $storageId;
+
+        $content = $storage->doFetch($storageId);
+
+        if (is_array($content)) {
+            $this->content = $content;
+        }
+    }
 
     /**
      * Get the content related to the current cache key. Make sure to call the method {@link has()} to verify whether
@@ -100,9 +107,7 @@ class Eager
      */
     public function flushAll()
     {
-        if ($this->isPopulated()) {
-            $this->storage->doDelete($this->storageId);
-        }
+        $this->storage->doDelete($this->storageId);
 
         $this->content = array();
         $this->isDirty = false;
@@ -110,29 +115,8 @@ class Eager
         return true;
     }
 
-    public function populateCache(Backend $storage, $storageId)
-    {
-        $this->storage = $storage;
-        $this->storageId = $storageId;
-
-        $content = $storage->doFetch($storageId);
-
-        if (is_array($content)) {
-            $this->content = $content;
-        }
-    }
-
-    public function isPopulated()
-    {
-        return !is_null($this->storage) && !is_null($this->storageId);
-    }
-
     public function persistCacheIfNeeded($ttl)
     {
-        if (!$this->isPopulated()) {
-            throw new RuntimeException('Cache was not populated. Make sure to call populateCache() first');
-        }
-
         if ($this->isDirty) {
             $this->storage->doSave($this->storageId, $this->content, $ttl);
         }
