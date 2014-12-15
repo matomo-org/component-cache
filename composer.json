@@ -2,6 +2,15 @@
     "name": "piwik/cache",
     "type": "library",
     "license": "LGPL-3.0",
+    "description": "PHP caching library based on Doctrine cache",
+    "keywords": ["cache","array","file","redis"],
+    "authors": [
+        {
+            "name": "The Piwik Team",
+            "email": "hello@piwik.org",
+            "homepage": "http://piwik.org/the-piwik-team/"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "Piwik\\Cache\\": "src/"
