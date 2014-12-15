@@ -36,7 +36,13 @@ class Factory
         $backends = array();
 
         foreach ($options['backends'] as $backendToBuild) {
-            $backends[] = $this->buildBackend($backendToBuild, $options[$backendToBuild]);
+
+            $backendOptions = array();
+            if (array_key_exists($backendToBuild, $options)) {
+                $backendOptions = $options[$backendToBuild];
+            }
+
+            $backends[] = $this->buildBackend($backendToBuild, $backendOptions);
         }
 
         return new Chained($backends);
