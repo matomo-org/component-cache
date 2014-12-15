@@ -149,7 +149,7 @@ $cache = new \Piwik\Cache\Transient();
 $cache->fetch('myid');
 $cache->contains('myid');
 $cache->delete('myid');
-$cache->save('myid', new \stdClass(), $lifeTimeInSeconds = 300);
+$cache->save('myid', new \stdClass());
 $cache->flushAll();
 ```
 
