@@ -14,8 +14,8 @@ use Piwik\Cache\Backend;
 /**
  * This class is used to cache data during one request.
  *
- * Compared to the persistent cache it does not support setting any lifetime. To be a fast cache it does
- * not validate any cache id.
+ * Compared to the lazy cache it does not support setting any lifetime. To be a fast cache it does
+ * not validate any cache id etc.
  */
 class Transient
 {

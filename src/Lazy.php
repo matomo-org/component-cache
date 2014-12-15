@@ -10,7 +10,7 @@ namespace Piwik\Cache;
 
 use Piwik\Cache\Backend;
 
-class Persistent
+class Lazy
 {
     private $backend;
 

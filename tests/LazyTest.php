@@ -9,15 +9,15 @@
 namespace Tests\Piwik\Cache;
 
 use Piwik\Cache\Backend\ArrayCache;
-use Piwik\Cache\Persistent;
+use Piwik\Cache\Lazy;
 
 /**
- * @covers \Piwik\Cache\Persistent
+ * @covers \Piwik\Cache\Lazy
  */
-class PersistentTest extends \PHPUnit_Framework_TestCase
+class LazyTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Persistent
+     * @var Lazy
      */
     private $cache;
 
@@ -27,7 +27,7 @@ class PersistentTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $backend = new ArrayCache();
-        $this->cache = new Persistent($backend);
+        $this->cache = new Lazy($backend);
         $this->cache->set($this->cacheId, $this->cacheValue);
     }
 

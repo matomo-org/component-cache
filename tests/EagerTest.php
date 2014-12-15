@@ -9,16 +9,16 @@
 namespace Tests\Piwik\Cache;
 
 use Piwik\Cache\Backend\ArrayCache;
-use Piwik\Cache\Multi;
+use Piwik\Cache\Eager;
 use Piwik\Cache\Backend;
 
 /**
- * @covers \Piwik\Cache\Multi
+ * @covers \Piwik\Cache\Eager
  */
-class MultiTest extends \PHPUnit_Framework_TestCase
+class EagerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Multi
+     * @var Eager
      */
     private $cache;
 
@@ -27,8 +27,8 @@ class MultiTest extends \PHPUnit_Framework_TestCase
      */
     private $backend;
 
-    private $storageId = 'multicache';
-    private $cacheId = 'testid';
+    private $storageId  = 'eagercache';
+    private $cacheId    = 'testid';
     private $cacheValue = 'exampleValue';
 
     public function setUp()
@@ -36,15 +36,15 @@ class MultiTest extends \PHPUnit_Framework_TestCase
         $this->backend = new ArrayCache();
         $this->backend->doSave($this->storageId, array($this->cacheId => $this->cacheValue));
 
-        $this->cache = $this->createMultiCache();
+        $this->cache = $this->createEagerCache();
         $this->cache->populateCache($this->backend, $this->storageId);
     }
 
     public function test_isPopulated_shouldNotBePopulatedByDefault()
     {
-        $multi = $this->createMultiCache();
+        $cache = $this->createEagerCache();
 
-        $this->assertFalse($multi->isPopulated());
+        $this->assertFalse($cache->isPopulated());
     }
 
     public function test_isPopulated_shouldBePopulated_IfWasPopulateBefore()
@@ -179,7 +179,7 @@ class MultiTest extends \PHPUnit_Framework_TestCase
 
         $this->cache->persistCacheIfNeeded(400);
 
-        $this->assertFalse($this->getContentOfStorage()); // should not set the content of multi ($cacheId => $cacheValue)
+        $this->assertFalse($this->getContentOfStorage()); // should not have set the content of cache ($cacheId => $cacheValue)
     }
 
     /**
@@ -188,7 +188,7 @@ class MultiTest extends \PHPUnit_Framework_TestCase
      */
     public function test_persistCacheIfNeeded_shouldFail_IfNeverPopulated()
     {
-        $this->createMultiCache()->persistCacheIfNeeded(400);
+        $this->createEagerCache()->persistCacheIfNeeded(400);
     }
 
     private function getContentOfStorage()
@@ -196,9 +196,9 @@ class MultiTest extends \PHPUnit_Framework_TestCase
         return $this->backend->doFetch($this->storageId);
     }
 
-    private function createMultiCache()
+    private function createEagerCache()
     {
-        return new Multi();
+        return new Eager();
     }
 
     private function assertHasCacheEntry($cacheId)

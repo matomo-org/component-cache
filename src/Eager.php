@@ -20,25 +20,25 @@ use RuntimeException;
  * that you need very often and only for cache entries that are not too large to keep loading and parsing the single
  * cache entry fast.
  *
- * $multi = new Multi();
+ * $cache = new Eager();
  *
- * if (!$multi->isPopulated()) {
- *   $multi->populateCache($backend, $storageId = 'multicache');
- *   // $multi->get('my'id')
- *   // $multi->set('myid', 'test');
+ * if (!$cache->isPopulated()) {
+ *   $cache->populateCache($backend, $storageId = 'eagercache');
+ *   // $cache->get('my'id')
+ *   // $cache->set('myid', 'test');
  *
  *   // ... at the end of the request
- *   $multi->persistCacheIfNeeded(43200);
+ *   $cache->persistCacheIfNeeded(43200);
  * }
  */
-class Multi
+class Eager
 {
     /**
      * @var Backend
      */
     private $storage;
     private $storageId;
-    private $content;
+    private $content = array();
     private $isDirty = false;
 
     /**
@@ -112,7 +112,6 @@ class Multi
 
     public function populateCache(Backend $storage, $storageId)
     {
-        $this->content = array();
         $this->storage = $storage;
         $this->storageId = $storageId;
 

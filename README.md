@@ -41,22 +41,15 @@ Please send a pull request in case you have added one.
 
 This library comes with three different types of caches. The naming is not optimal right now.
 
-### Persistent
+### Lazy
 
-This can be considered as the default cache to use. The persistent cache works with any backend so you can decide
-whether you want to persist cache entries between requests or not. It does not support the caching of any objects. 
-Only boolean, numbers, strings and arrays are supported. Whenever you request an entry from the cache it will fetch the 
-entry from the defined backend again which can cause many reads depending on your application.
+This can be considered as the default cache to use in case you don't know which one to pick. The lazy cache works with 
+any backend so you can decide whether you want to persist cache entries between requests or not. It does not support 
+the caching of any objects. Only boolean, numbers, strings and arrays are supported. Whenever you request an entry 
+from the cache it will fetch the entry from the defined backend again which can cause many reads depending on your 
+application.
 
-### Transient
-
-This class is used to cache any data during one request. It won't be persisted.
-
-Compared to the persistent cache it does not support setting any life time. All cache entries will be only cached during 
-one request in a simple array meaning it is very fast to save and fetch cache entries. It can also hold all sorts of 
-values, even objects. For fast performance it won't validate any cache ids.
-
-### Multi
+### Eager
 
 This cache stores all its cache entries under one "cache" entry in a configurable backend.
 
@@ -66,6 +59,16 @@ for things that you need very often and only for cache entries that are not too 
 single cache entry fast. This cache is even more useful in case you are using a slow backend such as a file or a database.
  Instead of having a hundred stat calls there will be only one. All cache entries it contains have the same life time. 
  For fast performance it won't validate any cache ids. It is not possible to cache any objects using this cache.
+
+### Transient
+
+This class is used to cache any data during one request. It won't be persisted.
+
+All cache entries will be cached in a simple array meaning it is very fast to save and fetch cache entries. You can 
+basically achieve the same by using a lazy cache and a backend that does not persist any data such as the array cache 
+but this one will be a bit faster as it won't validate any cache ids and it allows you to cache any kind of objects.
+Compared to the lazy cache it does not support setting any life time as it will be only valid during one request anyway.
+Use this one if you read hundreds or thousands of cache entries and if performance really matters to you.
 
 ## Usage
 
@@ -109,19 +112,34 @@ using the array cache so the next read within this request will be fast and won'
  a cache entry it will be removed from all configured backends. You can chain any backends. It is recommended to list 
  faster backends first.
 
-### Creating a persistent cache
+### Creating a lazy cache
 
 ```php
 $factory = new \Piwik\Cache\Backend\Factory();
 $backend = $factory->buildBackend('file', array('directory' => '/path/to/cache'));
 
-$cache = new \Piwik\Cache\Persistent($backend);
+$cache = new \Piwik\Cache\Lazy($backend);
 $cache->get('myid');
 $cache->has('myid');
 $cache->delete('myid');
 $cache->set('myid', 'myvalue', $lifeTimeInSeconds = 300);
 $cache->flushAll();
 ```
+
+### Creating a eager cache
+
+```php
+$cache = new \Piwik\Cache\Eager();
+$cache->populate($backend, $cacheId = 'eagercache', $lifeTimeInSeconds = 300);
+$cache->get('myid');
+$cache->has('myid');
+$cache->delete('myid');
+$cache->set('myid', new \stdClass(), $lifeTimeInSeconds = 300);
+$cache->persistCacheIfNeeded();
+$cache->flushAll();
+```
+
+It will cache all set cache entries under the cache entry `eagercache`.
 
 ### Creating a transient cache
 
@@ -133,21 +151,6 @@ $cache->delete('myid');
 $cache->set('myid', new \stdClass(), $lifeTimeInSeconds = 300);
 $cache->flushAll();
 ```
-
-### Creating a multi cache
-
-```php
-$cache = new \Piwik\Cache\Multi();
-$cache->populate($backend, $cacheId = 'multicache', $lifeTimeInSeconds = 300);
-$cache->get('myid');
-$cache->has('myid');
-$cache->delete('myid');
-$cache->set('myid', new \stdClass(), $lifeTimeInSeconds = 300);
-$cache->persistCacheIfNeeded();
-$cache->flushAll();
-```
-
-It will cache all set cache entries under the cache entry `multicache`.
 
 ## License
 
