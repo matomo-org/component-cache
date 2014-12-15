@@ -16,6 +16,7 @@ matrix:
 
 before_script:
   - composer require satooshi/php-coveralls:dev-master --dev --no-progress
+  - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 script:
   - mkdir -p build/logs
