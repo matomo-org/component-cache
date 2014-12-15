@@ -8,7 +8,6 @@
 
 namespace Tests\Piwik\Cache;
 
-use Piwik\Cache\Backend\ArrayCache;
 use Piwik\Cache\Transient;
 
 /**
@@ -26,8 +25,7 @@ class TransientTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $backend = new ArrayCache();
-        $this->cache = new Transient($backend);
+        $this->cache = new Transient();
         $this->cache->set($this->cacheId, $this->cacheValue);
     }
 

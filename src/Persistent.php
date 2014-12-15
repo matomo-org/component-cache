@@ -46,6 +46,7 @@ class Persistent
     /**
      * Puts data into the cache.
      *
+     * @param string $id       The cache id.
      * @param mixed  $data     The cache entry/data.
      * @param int    $lifeTime The cache lifetime.
      *                         If != 0, sets a specific lifetime for this cache entry (0 => infinite lifeTime).

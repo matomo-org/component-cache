@@ -24,9 +24,9 @@ class Transient
      */
     private $backend;
 
-    public function __construct(Backend\ArrayCache $backend)
+    public function __construct()
     {
-        $this->backend = $backend;
+        $this->backend = new Backend\ArrayCache();
     }
 
     /**

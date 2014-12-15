@@ -126,8 +126,7 @@ $cache->flushAll();
 ### Creating a transient cache
 
 ```php
-$arrayCache = new \Piwik\Cache\Backend\ArrayCache();
-$cache = new \Piwik\Cache\Transient($arrayCache);
+$cache = new \Piwik\Cache\Transient();
 $cache->get('myid');
 $cache->has('myid');
 $cache->delete('myid');
