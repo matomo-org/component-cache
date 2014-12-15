@@ -70,7 +70,7 @@ class File extends PhpFileCache implements Backend
     public function doFlush()
     {
         foreach ($this->getFileIterator() as $name => $file) {
-            $this->opCacheInvalidate($file->getPathname());
+            $this->opCacheInvalidate($name);
         }
 
         parent::doFlush();
