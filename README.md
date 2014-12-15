@@ -91,7 +91,7 @@ $factory = new \Piwik\Cache\Backend\Factory();
 $backend = $factory->buildBackend('redis', $options);
 ```
 
-### Creating a Chained backend
+### Creating a chained backend
 
 ```php
 $options = array(
