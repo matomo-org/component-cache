@@ -45,7 +45,7 @@ class Factory
     public function buildRedisCache($options)
     {
         if (empty($options['host']) || empty($options['port'])) {
-            throw new \Exception('RedisCache is not configured. Please provide at least a host and a port');
+            throw new \InvalidArgumentException('RedisCache is not configured. Please provide at least a host and a port');
         }
 
         $redis = new \Redis();
@@ -71,7 +71,7 @@ class Factory
      * @return Backend
      * @throws Factory\BackendNotFoundException
      */
-    public function buildBackend($type, $options)
+    public function buildBackend($type, array $options)
     {
         switch ($type) {
             case 'array':

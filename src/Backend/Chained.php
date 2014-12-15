@@ -25,6 +25,11 @@ class Chained implements Backend
         $this->backends = array_values($backends);
     }
 
+    public function getBackends()
+    {
+        return $this->backends;
+    }
+
     public function doFetch($id)
     {
         foreach ($this->backends as $key => $backend) {

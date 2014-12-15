@@ -67,6 +67,11 @@ class Multi
      */
     public function set($id, $content)
     {
+        if (is_object($content)) {
+            throw new \InvalidArgumentException('You cannot use this cache to cache an object, only arrays, strings and numbers. Have a look at Transient cache.');
+            // for performance reasons we do currently not recursively search whether any array contains an object.
+        }
+
         $this->content[$id] = $content;
         $this->isDirty = true;
         return true;
@@ -80,6 +85,7 @@ class Multi
     public function delete($id)
     {
         if ($this->has($id)) {
+            $this->isDirty = true;
             unset($this->content[$id]);
             return true;
         }
@@ -99,6 +105,7 @@ class Multi
         }
 
         $this->content = array();
+        $this->isDirty = false;
 
         return true;
     }
@@ -124,7 +131,7 @@ class Multi
     public function persistCacheIfNeeded($ttl)
     {
         if (!$this->isPopulated()) {
-            throw new RuntimeException('Cache was never populated. Make sure to call populateCache() first');
+            throw new RuntimeException('Cache was not populated. Make sure to call populateCache() first');
         }
 
         if ($this->isDirty) {

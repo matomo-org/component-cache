@@ -31,6 +31,10 @@ class ArrayCache extends DoctrineArrayCache implements Backend
 
     public function doDelete($id)
     {
+        if (!$this->doContains($id)) {
+            return false;
+        }
+
         return parent::doDelete($id);
     }
 

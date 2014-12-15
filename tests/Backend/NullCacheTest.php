@@ -11,7 +11,7 @@ namespace Tests\Piwik\Cache\Backend;
 use Piwik\Cache\Backend\NullCache;
 
 /**
- * @covers \Piwik\Network\IPv4
+ * @covers \Piwik\Cache\Backend\NullCache
  */
 class NullCacheTest extends \PHPUnit_Framework_TestCase
 {

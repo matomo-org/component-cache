@@ -56,6 +56,11 @@ class Persistent
     {
         $id = $this->getCompletedCacheIdIfValid($id);
 
+        if (is_object($data)) {
+            throw new \InvalidArgumentException('You cannot use this cache to cache an object, only arrays, strings and numbers. Have a look at Transient cache.');
+            // for performance reasons we do currently not recursively search whether any array contains an object.
+        }
+
         return $this->backend->doSave($id, $data, $lifeTime);
     }
 
@@ -95,11 +100,11 @@ class Persistent
     private function checkId($id)
     {
         if (empty($id)) {
-            throw new \Exception('Empty cache ID given');
+            throw new \InvalidArgumentException('Empty cache id given');
         }
 
         if (!$this->isValidId($id)) {
-            throw new \Exception("Invalid cache ID request $id");
+            throw new \InvalidArgumentException("Invalid cache id request $id");
         }
     }
 
