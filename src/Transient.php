@@ -8,7 +8,6 @@
  */
 namespace Piwik\Cache;
 
-use Piwik\Cache;
 use Piwik\Cache\Backend;
 
 /**
@@ -17,7 +16,7 @@ use Piwik\Cache\Backend;
  * Compared to the lazy cache it does not support setting any lifetime. To be a fast cache it does
  * not validate any cache id etc.
  */
-class Transient
+class Transient implements Cache
 {
     /**
      * @var Backend
@@ -44,10 +43,7 @@ class Transient
     }
 
     /**
-     * Tests if an entry exists in the cache.
-     *
-     * @param string $id The cache id.
-     * @return bool
+     * {@inheritdoc}
      */
     public function contains($id)
     {
@@ -59,18 +55,16 @@ class Transient
      *
      * @param string $id The cache id.
      * @param mixed $content
+     * @param int $lifeTime Setting a lifetime is not supported by this cache and the parameter will be ignored.
      * @return boolean
      */
-    public function save($id, $content)
+    public function save($id, $content, $lifeTime = 0)
     {
         return $this->backend->doSave($id, $content);
     }
 
     /**
-     * Deletes a cache entry.
-     *
-     * @param string $id The cache id.
-     * @return boolean TRUE if the cache entry was successfully deleted, FALSE otherwise.
+     * {@inheritdoc}
      */
     public function delete($id)
     {
@@ -78,9 +72,7 @@ class Transient
     }
 
     /**
-     * Flushes all cache entries.
-     *
-     * @return boolean TRUE if the cache entries were successfully flushed, FALSE otherwise.
+     * {@inheritdoc}
      */
     public function flushAll()
     {

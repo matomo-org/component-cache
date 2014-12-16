@@ -10,7 +10,7 @@ namespace Piwik\Cache;
 
 use Piwik\Cache\Backend;
 
-class Lazy
+class Lazy implements Cache
 {
     private $backend;
 
@@ -38,10 +38,7 @@ class Lazy
     }
 
     /**
-     * Tests if an entry exists in the cache.
-     *
-     * @param string $id The cache id.
-     * @return boolean TRUE if a cache entry exists for the given cache id, FALSE otherwise.
+     * {@inheritdoc}
      */
     public function contains($id)
     {
@@ -73,10 +70,7 @@ class Lazy
     }
 
     /**
-     * Deletes a cache entry.
-     *
-     * @param string $id The cache id.
-     * @return boolean TRUE if the cache entry was successfully deleted, FALSE otherwise.
+     * {@inheritdoc}
      */
     public function delete($id)
     {
@@ -86,9 +80,7 @@ class Lazy
     }
 
     /**
-     * Flushes all cache entries.
-     *
-     * @return boolean TRUE if the cache entries were successfully flushed, FALSE otherwise.
+     * {@inheritdoc}
      */
     public function flushAll()
     {

@@ -8,7 +8,6 @@
  */
 namespace Piwik\Cache;
 
-use Piwik\Cache;
 use Piwik\Cache\Backend;
 
 /**
@@ -26,7 +25,7 @@ use Piwik\Cache\Backend;
  * // ... at some point or at the end of the request
  * $cache->persistCacheIfNeeded($lifeTime = 43200);
  */
-class Eager
+class Eager implements Cache
 {
     /**
      * @var Backend
@@ -69,10 +68,7 @@ class Eager
     }
 
     /**
-     * Tests if an entry exists in the cache.
-     *
-     * @param string $id The cache id.
-     * @return bool
+     * {@inheritdoc}
      */
     public function contains($id)
     {
@@ -84,9 +80,10 @@ class Eager
      *
      * @param string $id The cache id.
      * @param int|float|string|boolean|array $content
+     * @param int $lifeTime Setting a lifetime is not supported by this cache and the parameter will be ignored.
      * @return boolean
      */
-    public function save($id, $content)
+    public function save($id, $content, $lifeTime = 0)
     {
         if (is_object($content)) {
             throw new \InvalidArgumentException('You cannot use this cache to cache an object, only arrays, strings and numbers. Have a look at Transient cache.');
@@ -99,10 +96,7 @@ class Eager
     }
 
     /**
-     * Deletes one cache entry having the given id.
-     *
-     * @param string $id The cache id.
-     * @return boolean TRUE if the cache actually contains this entry and if it was successfully deleted, FALSE otherwise.
+     * {@inheritdoc}
      */
     public function delete($id)
     {
@@ -116,9 +110,7 @@ class Eager
     }
 
     /**
-     * Flushes all cache entries.
-     *
-     * @return bool returns always TRUE after the cache was flushed.
+     * {@inheritdoc}
      */
     public function flushAll()
     {
