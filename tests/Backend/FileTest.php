@@ -55,12 +55,14 @@ class FileTest extends \PHPUnit_Framework_TestCase
         return $path;
     }
 
-    public function test_doSave_shouldCreateDirectory_IfWritingIntoNewDirectory()
+    public function test_doSave_shouldCreateDirectoryWith750Permission_IfWritingIntoNewDirectory()
     {
-        $file = $this->createFileCache('test');
+        $namespace = 'test';
+
+        $file = $this->createFileCache($namespace);
         $file->doSave('myidtest', 'myvalue');
 
-        $this->assertTrue(is_dir($this->getPath('test')));
+        $this->assertTrue(is_dir($this->getPath($namespace)));
         $file->flushAll();
     }
 

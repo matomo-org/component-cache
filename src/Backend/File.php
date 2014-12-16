@@ -25,6 +25,23 @@ class File extends PhpFileCache implements Backend
 
     protected $extension = '.php';
 
+    /**
+     * Constructor.
+     *
+     * @param string      $directory The cache directory.
+     * @param string|null $extension The cache file extension.
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function __construct($directory, $extension = null)
+    {
+        if (!is_dir($directory)) {
+            $this->createDirectory($directory);
+        }
+
+        parent::__construct($directory, $extension);
+    }
+
     public function doFetch($id)
     {
         if (self::$invalidateOpCacheBeforeRead) {
