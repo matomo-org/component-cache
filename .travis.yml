@@ -16,7 +16,7 @@ matrix:
 
 before_script:
   - composer require satooshi/php-coveralls:dev-master --dev --no-progress
-  - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - sh -c "if [ $TRAVIS_PHP_VERSION != 'hhvm' ]; then phpenv config-add ./tests/travis/php.ini; fi"
 
 script:
   - mkdir -p build/logs

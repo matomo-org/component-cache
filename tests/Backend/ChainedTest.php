@@ -40,7 +40,6 @@ class ChainedTest extends \PHPUnit_Framework_TestCase
         $arrayCache2->doSave($cacheId, $cacheValue);
         $arrayCache3 = new ArrayCache();
 
-
         $cache = $this->createChainedCache(array($arrayCache1, $arrayCache2, $arrayCache3));
         $this->assertEquals($cacheValue, $cache->doFetch($cacheId)); // should find the value from second cache
 
