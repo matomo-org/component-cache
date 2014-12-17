@@ -58,19 +58,65 @@ class File extends PhpFileCache implements Backend
 
     public function doSave($id, $data, $lifeTime = 0)
     {
-        if (!is_dir($this->directory)) {
-            $this->createDirectory($this->directory);
+        if ($lifeTime > 0) {
+            $lifeTime = time() + $lifeTime;
         }
 
-        if (!is_writable($this->directory)) {
+        $filename = $this->getFilename($id);
+        $filepath = pathinfo($filename, PATHINFO_DIRNAME);
+
+        if (!is_dir($filepath)) {
+            $this->createDirectory($filepath);
+        }
+
+        if (!is_writable($filepath)) {
             return false;
         }
 
-        $success = parent::doSave($id, $data, $lifeTime);
+        $value = array(
+            'lifetime' => $lifeTime,
+            'data'     => $data
+        );
 
-        $this->invalidateCacheFile($id);
+        $value   = var_export($value, true);
+        $code    = sprintf('<?php return %s;', $value);
+        $success = $this->writeCacheToFileInAtomicWayIfPossible($filepath, $filename, $code);
+
+        if ($success) {
+            $this->invalidateCacheFile($id);
+        }
 
         return $success;
+    }
+
+    private function writeCacheToFileInAtomicWayIfPossible($directory, $filename, $cacheContent)
+    {
+        // Write cache to a temp file, then rename it, overwriting the old cache
+        // On *nix systems this should guarantee atomicity
+        $tmp_filename = tempnam($directory, 'tmp_');
+        @chmod($tmp_filename, 0640);
+
+        if ($fp = @fopen($tmp_filename, 'wb')) {
+            @fwrite($fp, $cacheContent, strlen($cacheContent));
+            @fclose($fp);
+
+            if (!@rename($tmp_filename, $filename)) {
+                // On some systems rename() doesn't overwrite destination
+                // @codeCoverageIgnoreStart
+                @unlink($filename);
+                if (!@rename($tmp_filename, $filename)) {
+                    // Make sure that no temporary file is left over
+                    // if the destination is not writable
+                    @unlink($tmp_filename);
+                    return false;
+                }
+            }
+            // @codeCoverageIgnoreEnd
+
+            return true;
+        }
+
+        return false;
     }
 
     public function doDelete($id)
