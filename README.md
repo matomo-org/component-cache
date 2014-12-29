@@ -156,3 +156,9 @@ $cache->flushAll();
 ## License
 
 The Cache component is released under the [LGPL v3.0](http://choosealicense.com/licenses/lgpl-3.0/).
+
+## Changelog 
+
+ * 0.2.3: fixed another race condition in file cache
+ * 0.2.2: fixed a race condition in file cache
+ * 0.2.0: Initial release
