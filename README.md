@@ -159,6 +159,7 @@ The Cache component is released under the [LGPL v3.0](http://choosealicense.com/
 
 ## Changelog 
 
+ * 0.2.4: do not throw exception when clearing a file cache if the cache dir doesn't exist
  * 0.2.3: fixed another race condition in file cache
  * 0.2.2: fixed a race condition in file cache
  * 0.2.0: Initial release

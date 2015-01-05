@@ -84,6 +84,11 @@ class File extends PhpFileCache implements Backend
 
     public function doFlush()
     {
+        // if the directory does not exist, do not bother to continue clearing
+        if (!is_dir($this->directory)) {
+            return;
+        }
+
         foreach ($this->getFileIterator() as $name => $file) {
             $this->opCacheInvalidate($name);
         }
