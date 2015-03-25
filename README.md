@@ -116,6 +116,8 @@ using the array cache so the next read within this request will be fast and won'
 
 ### Creating a lazy cache
 
+[Description lazy cache.](#lazy)
+
 ```php
 $factory = new \Piwik\Cache\Backend\Factory();
 $backend = $factory->buildBackend('file', array('directory' => '/path/to/cache'));
@@ -130,6 +132,8 @@ $cache->flushAll();
 
 ### Creating an eager cache
 
+[Description eager cache.](#eager)
+
 ```php
 $cache = new \Piwik\Cache\Eager($backend, $storageId = 'eagercache');
 $cache->fetch('myid');
@@ -143,6 +147,8 @@ $cache->flushAll();
 It will cache all set cache entries under the cache entry `eagercache`.
 
 ### Creating a transient cache
+
+[Description transient cache.](#transient)
 
 ```php
 $cache = new \Piwik\Cache\Transient();
