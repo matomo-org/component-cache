@@ -90,12 +90,7 @@ class Lazy implements Cache
     private function getCompletedCacheIdIfValid($id)
     {
         $this->checkId($id);
-        return $this->generateCacheId($id);
-    }
-
-    private function generateCacheId($id)
-    {
-        return sprintf('piwikcache_%s', $id);
+        return 'piwikcache_' . $id;
     }
 
     private function checkId($id)
