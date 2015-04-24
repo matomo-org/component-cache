@@ -19,14 +19,9 @@ use Piwik\Cache\Backend;
 class Transient implements Cache
 {
     /**
-     * @var Backend
+     * @var array $data
      */
-    private $backend;
-
-    public function __construct()
-    {
-        $this->backend = new Backend\ArrayCache();
-    }
+    private $data = array();
 
     /**
      * Fetches an entry from the cache.
@@ -39,7 +34,11 @@ class Transient implements Cache
      */
     public function fetch($id)
     {
-        return $this->backend->doFetch($id);
+        if ($this->contains($id)) {
+            return $this->data[$id];
+        }
+
+        return false;
     }
 
     /**
@@ -47,7 +46,7 @@ class Transient implements Cache
      */
     public function contains($id)
     {
-        return $this->backend->doContains($id);
+        return isset($this->data[$id]) || array_key_exists($id, $this->data);
     }
 
     /**
@@ -60,7 +59,9 @@ class Transient implements Cache
      */
     public function save($id, $content, $lifeTime = 0)
     {
-        return $this->backend->doSave($id, $content);
+        $this->data[$id] = $content;
+
+        return true;
     }
 
     /**
@@ -68,7 +69,12 @@ class Transient implements Cache
      */
     public function delete($id)
     {
-        return $this->backend->doDelete($id);
+        if (!$this->contains($id)) {
+            return false;
+        }
+
+        unset($this->data[$id]);
+        return true;
     }
 
     /**
@@ -76,7 +82,8 @@ class Transient implements Cache
      */
     public function flushAll()
     {
-        return $this->backend->doFlush();
-    }
+        $this->data = array();
 
+        return true;
+    }
 }
