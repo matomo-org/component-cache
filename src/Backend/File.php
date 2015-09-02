@@ -133,7 +133,7 @@ class File extends PhpFileCache implements Backend
     private function getFileIterator()
     {
         $pattern = '/^.+\\' . $this->extension . '$/i';
-        $iterator = new \RecursiveDirectoryIterator($this->directory);
+        $iterator = new \RecursiveDirectoryIterator($this->directory, \RecursiveDirectoryIterator::SKIP_DOTS);
         $iterator = new \RecursiveIteratorIterator($iterator);
         return new \RegexIterator($iterator, $pattern);
     }
