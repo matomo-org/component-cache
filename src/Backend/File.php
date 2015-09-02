@@ -23,8 +23,6 @@ class File extends PhpFileCache implements Backend
     // opcache in FPM, so we have to invalidate before reading)
     public static $invalidateOpCacheBeforeRead = false;
 
-    protected $extension = '.php';
-
     /**
      * Constructor.
      *
@@ -33,7 +31,7 @@ class File extends PhpFileCache implements Backend
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct($directory, $extension = null)
+    public function __construct($directory, $extension = '.php')
     {
         if (!is_dir($directory)) {
             $this->createDirectory($directory);
@@ -112,7 +110,7 @@ class File extends PhpFileCache implements Backend
         $path = $this->directory . DIRECTORY_SEPARATOR;
         $id   = preg_replace('@[\\\/:"*?<>|]+@', '', $id);
 
-        return $path . $id . $this->extension;
+        return $path . $id . $this->getExtension();
     }
 
     private function opCacheInvalidate($filepath)
@@ -132,7 +130,7 @@ class File extends PhpFileCache implements Backend
      */
     private function getFileIterator()
     {
-        $pattern = '/^.+\\' . $this->extension . '$/i';
+        $pattern = '/^.+\\' . $this->getExtension() . '$/i';
         $iterator = new \RecursiveDirectoryIterator($this->directory);
         $iterator = new \RecursiveIteratorIterator($iterator);
         return new \RegexIterator($iterator, $pattern);
