@@ -48,7 +48,7 @@ interface Backend
      *
      * @param string $id The cache id.
      *
-     * @return boolean TRUE if the cache entry was successfully deleted, FALSE otherwise.
+     * @return boolean TRUE if the cache entry was successfully deleted or did not exist, FALSE otherwise.
      */
     public function doDelete($id);
 

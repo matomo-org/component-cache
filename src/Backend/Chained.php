@@ -75,18 +75,16 @@ class Chained implements Backend
         return $stored;
     }
 
-    // returns true if was deleted from at least one backend, false if it was not present in any of those
+    // returns true even when file does not exist
     public function doDelete($id)
     {
-        $success = false;
-
         foreach ($this->backends as $backend) {
             if ($backend->doContains($id)) {
-                $success = $backend->doDelete($id) || $success;
+                $backend->doDelete($id);
             }
         }
 
-        return $success;
+        return true;
     }
 
     public function doFlush()
