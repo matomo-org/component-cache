@@ -18,7 +18,7 @@ With Composer:
         "piwik/cache": "*"
     }
 }
-```
+``` 
 
 ## Supported backends
 * Array (holds cache entries only during one request but is very fast)
