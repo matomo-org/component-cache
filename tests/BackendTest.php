@@ -110,11 +110,11 @@ class BackendTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider getBackends
      */
-    public function test_doDelete_shouldFail_IfCacheEntryDoesNotExist(Backend $backend)
+    public function test_doDelete_shouldNotFail_IfCacheEntryDoesNotExist(Backend $backend)
     {
         $success = $backend->doDelete('anYRandoOmId');
 
-        $this->assertFalse($success);
+        $this->assertTrue($success);
     }
 
     /**
