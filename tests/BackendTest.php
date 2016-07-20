@@ -114,7 +114,7 @@ class BackendTest extends \PHPUnit_Framework_TestCase
     {
         $success = $backend->doDelete('anYRandoOmId');
 
-        $this->assertTrue($success);
+        $this->assertFalse($success);
     }
 
     /**
