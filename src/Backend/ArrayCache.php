@@ -9,34 +9,53 @@
 namespace Piwik\Cache\Backend;
 
 use Piwik\Cache\Backend;
-use Doctrine\Common\Cache\ArrayCache as DoctrineArrayCache;
 
-class ArrayCache extends DoctrineArrayCache implements Backend
+class ArrayCache implements Backend
 {
+    private $data = array();
 
+    /**
+     * {@inheritdoc}
+     */
     public function doFetch($id)
     {
-        return parent::doFetch($id);
+        return $this->doContains($id) ? $this->data[$id] : false;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function doContains($id)
     {
-        return parent::doContains($id);
+        // isset() is required for performance optimizations, to avoid unnecessary function calls to array_key_exists.
+        return isset($this->data[$id]) || array_key_exists($id, $this->data);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function doSave($id, $data, $lifeTime = 0)
     {
-        return parent::doSave($id, $data, $lifeTime);
+        $this->data[$id] = $data;
+
+        return true;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function doDelete($id)
     {
-        return parent::doDelete($id);
+        unset($this->data[$id]);
+
+        return true;
     }
 
     public function doFlush()
     {
-        return parent::doFlush();
+        $this->data = array();
+
+        return true;
     }
 
 }
