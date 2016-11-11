@@ -46,7 +46,7 @@ class Factory
 
     public function buildRedisCache($options)
     {
-        if (empty($options['host']) || empty($options['port'])) {
+        if (empty($options['unix_socket']) && (empty($options['host']) || empty($options['port']))) {
             throw new \InvalidArgumentException('RedisCache is not configured. Please provide at least a host and a port');
         }
 
@@ -56,7 +56,11 @@ class Factory
         }
 
         $redis = new \Redis();
-        $redis->connect($options['host'], $options['port'], $timeout);
+        if (empty($options['unix_socket'])) {
+            $redis->connect($options['host'], $options['port'], $timeout);
+        } else {
+            $redis->connect($options['unix_socket'], null, $timeout);
+        }
 
         if (!empty($options['password'])) {
             $redis->auth($options['password']);
