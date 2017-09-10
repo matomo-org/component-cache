@@ -9,6 +9,7 @@ services:
   - redis-server
 
 sudo: false
+build: trusty
 
 matrix:
   allow_failures:
