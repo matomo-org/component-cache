@@ -99,10 +99,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $cache = $this->factory->buildBackend('redis', $options);
         $redis = $cache->getRedis();
 
-        $this->assertSame('127.0.0.1', $redis->getHost());
-        $this->assertSame(6379, $redis->getPort());
-        $this->assertSame(4.2, $redis->getTimeout());
-        $this->assertSame(5, $redis->getDBNum());
+        $this->assertEquals('127.0.0.1', $redis->getHost());
+        $this->assertEquals(6379, $redis->getPort());
+        $this->assertEquals(4.2, $redis->getTimeout());
+        $this->assertEquals(5, $redis->getDBNum());
     }
 
     /**
