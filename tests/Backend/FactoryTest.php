@@ -1,22 +1,22 @@
 <?php
 /**
- * Piwik - free/libre analytics platform
+ * Matomo - free/libre analytics platform
  *
- * @link http://piwik.org
+ * @link https://matomo.org
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL v3 or later
  */
 
-namespace Tests\Piwik\Cache\Backend;
+namespace Tests\Matomo\Cache\Backend;
 
-use Piwik\Cache\Backend\ArrayCache;
-use Piwik\Cache\Backend\Chained;
-use Piwik\Cache\Backend\Factory;
-use Piwik\Cache\Backend\File;
-use Piwik\Cache\Backend\NullCache;
-use Piwik\Cache\Backend\Redis;
+use Matomo\Cache\Backend\ArrayCache;
+use Matomo\Cache\Backend\Chained;
+use Matomo\Cache\Backend\Factory;
+use Matomo\Cache\Backend\File;
+use Matomo\Cache\Backend\NullCache;
+use Matomo\Cache\Backend\Redis;
 
 /**
- * @covers \Piwik\Cache\Backend\Factory
+ * @covers \Matomo\Cache\Backend\Factory
  */
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -148,7 +148,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Piwik\Cache\Backend\Factory\BackendNotFoundException
+     * @expectedException \Matomo\Cache\Backend\Factory\BackendNotFoundException
      */
     public function test_buildBackend_ShouldThrowException_IfInvalidTypeGiven()
     {

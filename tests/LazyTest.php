@@ -1,18 +1,18 @@
 <?php
 /**
- * Piwik - free/libre analytics platform
+ * Matomo - free/libre analytics platform
  *
- * @link http://piwik.org
+ * @link https://matomo.org
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL v3 or later
  */
 
-namespace Tests\Piwik\Cache;
+namespace Tests\Matomo\Cache;
 
-use Piwik\Cache\Backend\ArrayCache;
-use Piwik\Cache\Lazy;
+use Matomo\Cache\Backend\ArrayCache;
+use Matomo\Cache\Lazy;
 
 /**
- * @covers \Piwik\Cache\Lazy
+ * @covers \Matomo\Cache\Lazy
  */
 class LazyTest extends \PHPUnit_Framework_TestCase
 {

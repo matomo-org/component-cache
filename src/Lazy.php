@@ -1,14 +1,14 @@
 <?php
 /**
- * Piwik - free/libre analytics platform
+ * Matomo - free/libre analytics platform
  *
- * @link http://piwik.org
+ * @link https://matomo.org
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL v3 or later
  *
  */
-namespace Piwik\Cache;
+namespace Matomo\Cache;
 
-use Piwik\Cache\Backend;
+use Matomo\Cache\Backend;
 
 class Lazy implements Cache
 {
@@ -90,7 +90,7 @@ class Lazy implements Cache
     private function getCompletedCacheIdIfValid($id)
     {
         $this->checkId($id);
-        return 'piwikcache_' . $id;
+        return 'matomocache_' . $id;
     }
 
     private function checkId($id)

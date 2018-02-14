@@ -1,19 +1,19 @@
 <?php
 /**
- * Piwik - free/libre analytics platform
+ * Matomo - free/libre analytics platform
  *
- * @link http://piwik.org
+ * @link https://matomo.org
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL v3 or later
  */
 
-namespace Tests\Piwik\Cache\Backend;
+namespace Tests\Matomo\Cache\Backend;
 
-use Piwik\Cache\Backend\ArrayCache;
-use Piwik\Cache\Backend\Chained;
-use Piwik\Cache\Backend\NullCache;
+use Matomo\Cache\Backend\ArrayCache;
+use Matomo\Cache\Backend\Chained;
+use Matomo\Cache\Backend\NullCache;
 
 /**
- * @covers \Piwik\Cache\Backend\Chained
+ * @covers \Matomo\Cache\Backend\Chained
  */
 class ChainedTest extends \PHPUnit_Framework_TestCase
 {

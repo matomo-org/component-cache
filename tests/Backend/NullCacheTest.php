@@ -1,17 +1,17 @@
 <?php
 /**
- * Piwik - free/libre analytics platform
+ * Matomo - free/libre analytics platform
  *
- * @link http://piwik.org
+ * @link https://matomo.org
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL v3 or later
  */
 
-namespace Tests\Piwik\Cache\Backend;
+namespace Tests\Matomo\Cache\Backend;
 
-use Piwik\Cache\Backend\NullCache;
+use Matomo\Cache\Backend\NullCache;
 
 /**
- * @covers \Piwik\Cache\Backend\NullCache
+ * @covers \Matomo\Cache\Backend\NullCache
  */
 class NullCacheTest extends \PHPUnit_Framework_TestCase
 {
