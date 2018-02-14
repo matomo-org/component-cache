@@ -1,17 +1,17 @@
 <?php
 /**
- * Piwik - free/libre analytics platform
+ * Matomo - free/libre analytics platform
  *
- * @link http://piwik.org
+ * @link https://matomo.org
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL v3 or later
  */
 
-namespace Tests\Piwik\Cache\Backend;
+namespace Tests\Matomo\Cache\Backend;
 
-use Piwik\Cache\Backend\File;
+use Matomo\Cache\Backend\File;
 
 /**
- * @covers \Piwik\Cache\Backend\File
+ * @covers \Matomo\Cache\Backend\File
  */
 class FileTest extends \PHPUnit_Framework_TestCase
 {

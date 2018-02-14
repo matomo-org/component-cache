@@ -1,12 +1,11 @@
-# Piwik/Cache
+# Matomo/Cache
 
 This is a PHP caching library based on [Doctrine cache](https://github.com/doctrine/cache) that supports different backends. 
-At [Piwik](http://piwik.org) we developed this library with the focus on speed as we make heavy use of caching and 
+At [Matomo](https://matomo.org) we developed this library with the focus on speed as we make heavy use of caching and 
 sometimes fetch hundreds of entries from the cache in one request.
 
-[![Build Status](https://travis-ci.org/piwik/component-cache.svg?branch=master)](https://travis-ci.org/piwik/component-cache)
-[![Coverage Status](https://coveralls.io/repos/piwik/component-cache/badge.png?branch=master)](https://coveralls.io/r/piwik/component-cache?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/piwik/component-cache/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/piwik/component-cache/?branch=master)
+[![Build Status](https://travis-ci.org/matomo-org/component-cache.svg?branch=master)](https://travis-ci.org/matomo-org/component-cache)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/matomo-org/component-cache/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/matomo-org/component-cache/?branch=master)
 
 ## Installation
 
@@ -15,7 +14,7 @@ With Composer:
 ```json
 {
     "require": {
-        "piwik/cache": "*"
+        "matomo/cache": "*"
     }
 }
 ``` 
@@ -78,7 +77,7 @@ Use this one if you read hundreds or thousands of cache entries and if performan
 
 ```php
 $options = array('directory' => '/path/to/cache');
-$factory = new \Piwik\Cache\Backend\Factory();
+$factory = new \Matomo\Cache\Backend\Factory();
 $backend = $factory->buildBackend('file', $options);
 ```
 
@@ -92,7 +91,7 @@ $options = array(
     'database' => 15, // optional
     'password' => 'secret', // optional
 );
-$factory = new \Piwik\Cache\Backend\Factory();
+$factory = new \Matomo\Cache\Backend\Factory();
 $backend = $factory->buildBackend('redis', $options);
 ```
 
@@ -103,7 +102,7 @@ $options = array(
     'backends' => array('array', 'file'),
     'file'     => array('directory' => '/path/to/cache')
 );
-$factory = new \Piwik\Cache\Backend\Factory();
+$factory = new \Matomo\Cache\Backend\Factory();
 $backend = $factory->buildBackend('redis', $options);
 ```
 
@@ -119,10 +118,10 @@ using the array cache so the next read within this request will be fast and won'
 [Description lazy cache.](#lazy)
 
 ```php
-$factory = new \Piwik\Cache\Backend\Factory();
+$factory = new \Matomo\Cache\Backend\Factory();
 $backend = $factory->buildBackend('file', array('directory' => '/path/to/cache'));
 
-$cache = new \Piwik\Cache\Lazy($backend);
+$cache = new \Matomo\Cache\Lazy($backend);
 $cache->fetch('myid');
 $cache->contains('myid');
 $cache->delete('myid');
@@ -135,7 +134,7 @@ $cache->flushAll();
 [Description eager cache.](#eager)
 
 ```php
-$cache = new \Piwik\Cache\Eager($backend, $storageId = 'eagercache');
+$cache = new \Matomo\Cache\Eager($backend, $storageId = 'eagercache');
 $cache->fetch('myid');
 $cache->contains('myid');
 $cache->delete('myid');
@@ -151,7 +150,7 @@ It will cache all set cache entries under the cache entry `eagercache`.
 [Description transient cache.](#transient)
 
 ```php
-$cache = new \Piwik\Cache\Transient();
+$cache = new \Matomo\Cache\Transient();
 $cache->fetch('myid');
 $cache->contains('myid');
 $cache->delete('myid');

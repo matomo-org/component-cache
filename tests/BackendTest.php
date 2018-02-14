@@ -1,18 +1,18 @@
 <?php
 /**
- * Piwik - free/libre analytics platform
+ * Matomo - free/libre analytics platform
  *
- * @link http://piwik.org
+ * @link https://matomo.org
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL v3 or later
  */
 
-namespace Tests\Piwik\Cache;
+namespace Tests\Matomo\Cache;
 
-use Piwik\Cache\Backend;
-use Piwik\Cache\Backend\ArrayCache;
-use Piwik\Cache\Backend\Chained;
-use Piwik\Cache\Backend\Factory;
-use Piwik\Cache\Backend\File;
+use Matomo\Cache\Backend;
+use Matomo\Cache\Backend\ArrayCache;
+use Matomo\Cache\Backend\Chained;
+use Matomo\Cache\Backend\Factory;
+use Matomo\Cache\Backend\File;
 
 class BackendTest extends \PHPUnit_Framework_TestCase
 {

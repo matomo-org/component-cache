@@ -1,14 +1,14 @@
 <?php
 /**
- * Piwik - free/libre analytics platform
+ * Matomo - free/libre analytics platform
  *
- * @link http://piwik.org
+ * @link https://matomo.org
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL v3 or later
  *
  */
-namespace Piwik\Cache;
+namespace Matomo\Cache;
 
-use Piwik\Cache\Backend;
+use Matomo\Cache\Backend;
 
 /**
  * This class is used to cache data during one request.
