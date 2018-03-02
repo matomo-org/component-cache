@@ -84,14 +84,14 @@ class File extends PhpFileCache implements Backend
     {
         // if the directory does not exist, do not bother to continue clearing
         if (!is_dir($this->directory)) {
-            return;
+            return false;
         }
 
         foreach ($this->getFileIterator() as $name => $file) {
             $this->opCacheInvalidate($name);
         }
 
-        parent::doFlush();
+        return parent::doFlush();
     }
 
     private function invalidateCacheFile($id)
@@ -105,7 +105,7 @@ class File extends PhpFileCache implements Backend
      *
      * @return string
      */
-    protected function getFilename($id)
+    public function getFilename($id)
     {
         $path = $this->directory . DIRECTORY_SEPARATOR;
         $id   = preg_replace('@[\\\/:"*?<>|]+@', '', $id);
