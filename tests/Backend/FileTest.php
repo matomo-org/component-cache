@@ -85,4 +85,23 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $this->assertLessThan(time() + 550, $contents['lifetime']);
     }
 
+    /**
+     * @dataProvider getTestDataForGetFilename
+     */
+    public function test_getFilename_shouldConstructFilenameFromId($id, $expectedFilename)
+    {
+        $this->assertEquals($expectedFilename, $this->cache->getFilename($id));
+    }
+
+    public function getTestDataForGetFilename()
+    {
+        $dir = realpath($this->getPath());
+
+        return [
+            ['genericid', $dir . '/genericid.php'],
+            ['id with space', $dir . '/id with space.php'],
+            ['id \/ with :"?_ spe<>cial cha|rs', $dir . '/id  with _ special chars.php'],
+            ['with % allowed & special chars', $dir . '/with % allowed & special chars.php'],
+        ];
+    }
 }
