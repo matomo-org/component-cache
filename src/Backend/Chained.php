@@ -38,9 +38,8 @@ class Chained implements Backend
     public function doFetch($id)
     {
         foreach ($this->backends as $key => $backend) {
-            if ($backend->doContains($id)) {
-                $value = $backend->doFetch($id);
-
+            $value = $backend->doFetch($id);
+            if ($value !== false) {
                 // EG If chain is ARRAY => REDIS => DB and we find result in DB we will update REDIS and ARRAY
                 for ($subKey = $key - 1 ; $subKey >= 0 ; $subKey--) {
                     $this->backends[$subKey]->doSave($id, $value, 300); // TODO we should use the actual TTL here
