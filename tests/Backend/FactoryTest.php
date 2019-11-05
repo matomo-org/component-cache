@@ -14,18 +14,19 @@ use Matomo\Cache\Backend\Factory;
 use Matomo\Cache\Backend\File;
 use Matomo\Cache\Backend\NullCache;
 use Matomo\Cache\Backend\Redis;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Matomo\Cache\Backend\Factory
  */
-class FactoryTest extends \PHPUnit_Framework_TestCase
+class FactoryTest extends TestCase
 {
     /**
      * @var Factory
      */
     private $factory;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->factory = new Factory();
     }
@@ -33,25 +34,25 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function test_buildArrayCache_ShouldReturnInstanceOfArray()
     {
         $cache = $this->factory->buildArrayCache();
-        $this->assertTrue($cache instanceof ArrayCache);
+        $this->assertInstanceOf(ArrayCache::class, $cache);
     }
 
     public function test_buildNullCache_ShouldReturnInstanceOfNull()
     {
         $cache = $this->factory->buildNullCache();
-        $this->assertTrue($cache instanceof NullCache);
+        $this->assertInstanceOf(NullCache::class, $cache);
     }
 
     public function test_buildFileCache_ShouldReturnInstanceOfFile()
     {
         $cache = $this->factory->buildFileCache(array('directory' => __DIR__));
-        $this->assertTrue($cache instanceof File);
+        $this->assertInstanceOf(File::class, $cache);
     }
 
     public function test_buildChainedCache_ShouldReturnInstanceOfChained()
     {
         $cache = $this->factory->buildChainedCache(array('backends' => array()));
-        $this->assertTrue($cache instanceof Chained);
+        $this->assertInstanceOf(Chained::class, $cache);
     }
 
     public function test_buildBackend_Chained_ShouldActuallyCreateInstancesOfNestedBackends()
@@ -67,8 +68,8 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
         $backends = $cache->getBackends();
 
-        $this->assertTrue($backends[0] instanceof ArrayCache);
-        $this->assertTrue($backends[1] instanceof File);
+        $this->assertInstanceOf(ArrayCache::class, $backends[0]);
+        $this->assertInstanceOf(File::class, $backends[1]);
     }
 
     public function test_buildRedisCache_ShouldReturnInstanceOfRedis()
@@ -76,7 +77,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->skipTestIfRedisIsNotInstalled();
 
         $cache = $this->factory->buildRedisCache(array('host' => '127.0.0.1', 'port' => '6379', 'timeout' => 0.0));
-        $this->assertTrue($cache instanceof Redis);
+        $this->assertInstanceOf(Redis::class, $cache);
     }
 
     public function test_buildBackend_Redis_ShouldReturnInstanceOfRedis()
@@ -86,7 +87,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $options = array('host' => '127.0.0.1', 'port' => '6379', 'timeout' => 0.0);
 
         $cache = $this->factory->buildBackend('redis', $options);
-        $this->assertTrue($cache instanceof Redis);
+        $this->assertInstanceOf(Redis::class, $cache);
     }
 
     public function test_buildBackend_Redis_ShouldForwardOptionsToRedisInstance()
@@ -126,25 +127,25 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     public function test_buildBackend_ArrayCache_ShouldReturnInstanceOfArray()
     {
         $cache = $this->factory->buildBackend('array', array());
-        $this->assertTrue($cache instanceof ArrayCache);
+        $this->assertInstanceOf(ArrayCache::class, $cache);
     }
 
     public function test_buildBackend_NullCache_ShouldReturnInstanceOfNull()
     {
         $cache = $this->factory->buildBackend('null', array());
-        $this->assertTrue($cache instanceof NullCache);
+        $this->assertInstanceOf(NullCache::class, $cache);
     }
 
     public function test_buildBackend_FileCache_ShouldReturnInstanceOfFile()
     {
         $cache = $this->factory->buildBackend('file', array('directory' => __DIR__));
-        $this->assertTrue($cache instanceof File);
+        $this->assertInstanceOf(File::class, $cache);
     }
 
     public function test_buildBackend_Chained_ShouldReturnInstanceOfChained()
     {
         $cache = $this->factory->buildBackend('chained', array('backends' => array()));
-        $this->assertTrue($cache instanceof Chained);
+        $this->assertInstanceOf(Chained::class, $cache);
     }
 
     /**

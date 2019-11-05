@@ -9,11 +9,12 @@
 namespace Tests\Matomo\Cache;
 
 use Matomo\Cache\Transient;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Matomo\Cache\Transient
  */
-class TransientTest extends \PHPUnit_Framework_TestCase
+class TransientTest extends TestCase
 {
     /**
      * @var Transient
@@ -23,7 +24,7 @@ class TransientTest extends \PHPUnit_Framework_TestCase
     private $cacheId = 'testid';
     private $cacheValue = 'exampleValue';
 
-    public function setUp()
+    protected function setUp()
     {
         $this->cache = new Transient();
         $this->cache->save($this->cacheId, $this->cacheValue);
