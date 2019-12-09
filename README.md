@@ -5,7 +5,6 @@ At [Matomo](https://matomo.org) we developed this library with the focus on spee
 sometimes fetch hundreds of entries from the cache in one request.
 
 [![Build Status](https://travis-ci.org/matomo-org/component-cache.svg?branch=master)](https://travis-ci.org/matomo-org/component-cache)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/matomo-org/component-cache/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/matomo-org/component-cache/?branch=master)
 
 ## Installation
 
