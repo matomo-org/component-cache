@@ -10,8 +10,10 @@ namespace Tests\Matomo\Cache\Backend;
 
 use Matomo\Cache\Backend\ArrayCache;
 use Matomo\Cache\Backend\Chained;
+use Matomo\Cache\Backend\DefaultTimeoutDecorated;
 use Matomo\Cache\Backend\Factory;
 use Matomo\Cache\Backend\File;
+use Matomo\Cache\Backend\KeyPrefixDecorated;
 use Matomo\Cache\Backend\NullCache;
 use Matomo\Cache\Backend\Redis;
 
@@ -162,4 +164,39 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+
+    public function test_buildBackend_Chained_ShouldCreateInstancesOfNestedDecorators()
+    {}
+
+    public function test_buildBackend_Decorated_DefaultTimeoutDecorated_ShouldActuallyCreateInstanceOfNestedBackend()
+    {
+        $options = array(
+            'backend' => 'array',
+            'array'    => array(),
+            'defaultTimeout' => 555
+        );
+
+        /** @var DefaultTimeoutDecorated $cache */
+        $cache = $this->factory->buildBackend('defaultTimeout', $options);
+
+
+        $backend = $cache->getBackend();
+        $this->assertInstanceOf(ArrayCache::class, $backend);
+    }
+
+    public function test_buildBackend_Decorated_KeyPrefixDecorated_ShouldActuallyCreateInstanceOfNestedBackend()
+    {
+        $options = array(
+            'backend' => 'array',
+            'array'    => array(),
+            'keyPrefix' => '555'
+        );
+
+        /** @var KeyPrefixDecorated $cache */
+        $cache = $this->factory->buildBackend('keyPrefix', $options);
+
+
+        $backend = $cache->getBackend();
+        $this->assertInstanceOf(ArrayCache::class, $backend);
+    }
 }
