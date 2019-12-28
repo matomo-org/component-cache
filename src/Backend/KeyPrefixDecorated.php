@@ -10,18 +10,12 @@ namespace Matomo\Cache\Backend;
 
 use Matomo\Cache\Backend;
 
-class KeyPrefixDecorated implements Backend
+class KeyPrefixDecorated extends BaseDecorator
 {
     /**
      * @var string
      */
     private $keyPrefix;
-
-    /**
-     * @var Backend
-     */
-    private $decorated;
-
 
     /**
      * Constructor.
@@ -38,7 +32,7 @@ class KeyPrefixDecorated implements Backend
         }
 
         $this->keyPrefix = $options['keyPrefix'];
-        $this->decorated = $decorated;
+        parent::__construct($decorated);
     }
 
     public function doFetch($id)
@@ -59,16 +53,6 @@ class KeyPrefixDecorated implements Backend
     public function doDelete($id)
     {
         return $this->decorated->doDelete($this->keyPrefix . $id);
-    }
-
-    public function doFlush()
-    {
-        return $this->decorated->doFlush();
-    }
-
-    public function getBackend()
-    {
-        return $this->decorated;
     }
 
 }

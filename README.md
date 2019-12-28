@@ -24,6 +24,7 @@ With Composer:
 * File (stores the cache entry on the file system)
 * Redis (stores the cache entry on a Redis server, requires [phpredis](https://github.com/nicolasff/phpredis))
 * Chained (allows to chain multiple backends to make sure it will read from a fast cache if possible)
+* DefaultTimeout and KeyPrefix can be used to wrap other backend with default parameters.
 
 Doctrine cache provides support for many more backends and adding one of those is easy. For example:
 * APC
@@ -111,6 +112,22 @@ the cache entry from the file system. If the cache entry exists on the file syst
 using the array cache so the next read within this request will be fast and won't cause a stat call again. If you delete
  a cache entry it will be removed from all configured backends. You can chain any backends. It is recommended to list 
  faster backends first.
+ 
+### Creating a decorated backend with `DefaultTimeout` and `KeyPrefix`
+
+```php
+$options = array(
+    'backend'   => 'array',
+    'array'     => array(),
+    'keyPrefix' => 'someKeyPrefixStr'
+);
+$factory = new \Matomo\Cache\Backend\Factory();
+$backend = $factory->buildBackend('keyPrefix', $options);
+```
+
+These backends wrap another single backend. Since we can already group backends in a `chained` it can be wrapped itself,
+ we already have the means of wrapping a group of backends.
+
 
 ### Creating a lazy cache
 
