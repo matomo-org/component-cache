@@ -10,11 +10,12 @@ namespace Tests\Matomo\Cache\Backend;
 
 use Matomo\Cache\Backend\DefaultTimeoutDecorated;
 use Matomo\Cache\Backend\NullCache;
+use PHPUnit_Framework_TestCase;
 
 /**
  * @covers \Matomo\Cache\Backend\DefaultTimeoutDecorated
  */
-class DefaultTimeoutTest extends \PHPUnit_Framework_TestCase
+class DefaultTimeoutTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var DefaultTimeoutDecorated
@@ -33,13 +34,6 @@ class DefaultTimeoutTest extends \PHPUnit_Framework_TestCase
     {
         $this->backendMock = $this->getMock(NullCache::class);
 
-        $this->backendMock
-             ->expects($this->once())
-             ->method('doSave')
-             ->with( $this->anything(),
-                    $this->anything(),
-                    $this->defaultTTl);
-
         $opts = ['defaultTimeout'=>$this->defaultTTl];
 
         $this->cache = new DefaultTimeoutDecorated($this->backendMock, $opts);
@@ -47,6 +41,13 @@ class DefaultTimeoutTest extends \PHPUnit_Framework_TestCase
 
     public function test_doSave_shouldCallDecoratedWithDefaultTTL()
     {
+        $this->backendMock
+            ->expects($this->once())
+            ->method('doSave')
+            ->with( $this->anything(),
+                $this->anything(),
+                $this->defaultTTl);
+
         $this->cache->doSave('randomid', 'anyvalue');
     }
 }

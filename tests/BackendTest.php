@@ -179,12 +179,17 @@ class BackendTest extends \PHPUnit_Framework_TestCase
         $arrayCache = new ArrayCache();
         $fileCache  = new File($this->getPathToCacheDir());
 
-        $chainedFileCache = new File($this->getPathToCacheDir() . '/chain');
-        $chainCache = new Chained(array(new ArrayCache(), $chainedFileCache));
+        $chainedFileCache = new File( $this->getPathToCacheDir() . '/chain' );
+        $chainCache = new Chained( array(new ArrayCache(), $chainedFileCache) );
+
+        $timeoutDecorated = new Backend\DefaultTimeoutDecorated( new ArrayCache(), ['defaultTimeout' => 8866] );
+        $prefixDecorated = new Backend\KeyPrefixDecorated( new ArrayCache(), ['keyPrefix' => 'prefix123'] );
 
         $backends[] = $arrayCache;
         $backends[] = $fileCache;
         $backends[] = $chainCache;
+        $backends[] = $timeoutDecorated;
+        $backends[] = $prefixDecorated;
 
         if (extension_loaded('redis')) {
             $factory = new Factory();
