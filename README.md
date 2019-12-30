@@ -113,7 +113,7 @@ using the array cache so the next read within this request will be fast and won'
  a cache entry it will be removed from all configured backends. You can chain any backends. It is recommended to list 
  faster backends first.
  
-### Creating a decorated backend with `DefaultTimeout` and `KeyPrefix`
+### Creating a decorated backend with `DefaultTimeout` or `KeyPrefix`
 
 ```php
 $options = array(
@@ -125,8 +125,15 @@ $factory = new \Matomo\Cache\Backend\Factory();
 $backend = $factory->buildBackend('keyPrefix', $options);
 ```
 
-These backends wrap another single backend. Since we can already group backends in a `chained` it can be wrapped itself,
- we already have the means of wrapping a group of backends.
+Sometimes its useful to set default a default parameter for the timeout to force prevent infinite lifetimes, or to
+specify a key prefix to prevent different versions of the app from reading and writing the same cache entry.  
+`DefaultTimeout` and `KeyPrefix` are "decorators" that wrap another backend. Currently each takes a single configuration
+ argument with the same name as the backend.
+ 
+ |backend | argument | description |
+ | --- | --- | --- |
+ |DefaultTimeout|`defaultTimeout`| Uses the `integer` value as the default timeout for defining cache entry lifetime. Only comes to effect when no lifetime is specified; Prevents infinite lifetimes.|
+ |KeyPrefix|`keyPrefix`| Prefixes the given value to the keys for any operation. For example `'Key123'` would become `'SomePrefixKey123'` |
 
 
 ### Creating a lazy cache
