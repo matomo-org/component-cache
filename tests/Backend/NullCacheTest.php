@@ -9,11 +9,12 @@
 namespace Tests\Matomo\Cache\Backend;
 
 use Matomo\Cache\Backend\NullCache;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Matomo\Cache\Backend\NullCache
  */
-class NullCacheTest extends \PHPUnit_Framework_TestCase
+class NullCacheTest extends TestCase
 {
     /**
      * @var NullCache
@@ -22,7 +23,7 @@ class NullCacheTest extends \PHPUnit_Framework_TestCase
 
     private $cacheId = 'testid';
 
-    public function setUp()
+    protected function setUp()
     {
         $this->cache = new NullCache();
         $this->cache->doSave($this->cacheId, 'anyvalue', 100);

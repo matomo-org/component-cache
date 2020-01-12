@@ -13,8 +13,9 @@ use Matomo\Cache\Backend\ArrayCache;
 use Matomo\Cache\Backend\Chained;
 use Matomo\Cache\Backend\Factory;
 use Matomo\Cache\Backend\File;
+use PHPUnit\Framework\TestCase;
 
-class BackendTest extends \PHPUnit_Framework_TestCase
+class BackendTest extends TestCase
 {
 
     private $cacheId = 'testid';
@@ -22,7 +23,7 @@ class BackendTest extends \PHPUnit_Framework_TestCase
 
     private static $backends = array();
 
-    public function setUp()
+    protected function setUp()
     {
         foreach (self::$backends as $backend) {
             /** @var Backend[] $backend */

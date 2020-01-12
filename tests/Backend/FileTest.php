@@ -9,11 +9,12 @@
 namespace Tests\Matomo\Cache\Backend;
 
 use Matomo\Cache\Backend\File;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Matomo\Cache\Backend\File
  */
-class FileTest extends \PHPUnit_Framework_TestCase
+class FileTest extends TestCase
 {
     /**
      * @var File
@@ -22,13 +23,13 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     private $cacheId = 'testid';
 
-    public function setUp()
+    protected function setUp()
     {
         $this->cache = $this->createFileCache();
         $this->cache->doSave($this->cacheId, 'anyvalue', 100);
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         $this->cache->flushAll();
     }
@@ -62,7 +63,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $file = $this->createFileCache($namespace);
         $file->doSave('myidtest', 'myvalue');
 
-        $this->assertTrue(is_dir($this->getPath($namespace)));
+        $this->assertDirectoryExists($this->getPath($namespace));
         $file->flushAll();
     }
 

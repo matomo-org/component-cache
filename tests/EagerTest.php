@@ -11,11 +11,12 @@ namespace Tests\Matomo\Cache;
 use Matomo\Cache\Backend\ArrayCache;
 use Matomo\Cache\Eager;
 use Matomo\Cache\Backend;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Matomo\Cache\Eager
  */
-class EagerTest extends \PHPUnit_Framework_TestCase
+class EagerTest extends TestCase
 {
     /**
      * @var Eager
@@ -31,7 +32,7 @@ class EagerTest extends \PHPUnit_Framework_TestCase
     private $cacheId    = 'testid';
     private $cacheValue = 'exampleValue';
 
-    public function setUp()
+    protected function setUp()
     {
         $this->backend = new ArrayCache();
         $this->backend->doSave($this->storageId, array($this->cacheId => $this->cacheValue));

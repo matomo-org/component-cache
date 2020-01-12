@@ -10,11 +10,12 @@ namespace Tests\Matomo\Cache;
 
 use Matomo\Cache\Backend\ArrayCache;
 use Matomo\Cache\Lazy;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Matomo\Cache\Lazy
  */
-class LazyTest extends \PHPUnit_Framework_TestCase
+class LazyTest extends TestCase
 {
     /**
      * @var Lazy
@@ -24,7 +25,7 @@ class LazyTest extends \PHPUnit_Framework_TestCase
     private $cacheId = 'testid';
     private $cacheValue = 'exampleValue';
 
-    public function setUp()
+    protected function setUp()
     {
         $backend = new ArrayCache();
         $this->cache = new Lazy($backend);

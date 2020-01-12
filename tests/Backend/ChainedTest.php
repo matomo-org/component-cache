@@ -11,11 +11,12 @@ namespace Tests\Matomo\Cache\Backend;
 use Matomo\Cache\Backend\ArrayCache;
 use Matomo\Cache\Backend\Chained;
 use Matomo\Cache\Backend\NullCache;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Matomo\Cache\Backend\Chained
  */
-class ChainedTest extends \PHPUnit_Framework_TestCase
+class ChainedTest extends TestCase
 {
 
     public function test_constructor_getbackends_shouldMakeSureToHaveProperIndex()
