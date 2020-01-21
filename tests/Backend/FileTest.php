@@ -86,6 +86,15 @@ class FileTest extends TestCase
         $this->assertLessThan(time() + 550, $contents['lifetime']);
     }
 
+    public function test_doFetch_ParseError()
+    {
+        $test = $this->cache->getFilename('foo');
+        file_put_contents($test, '<?php echo $dat
+    && foo();flelr');
+
+        $this->assertFalse($this->cache->doFetch('foo'));
+    }
+
     /**
      * @dataProvider getTestDataForGetFilename
      */
