@@ -28,7 +28,7 @@ class Redis extends RedisCache implements Backend
         return parent::doSave($id, $data, $lifeTime);
     }
 
-    protected function doDelete($id)
+    public function doDelete($id)
     {
         return $this->getRedis()->del($id) >= 0;
     }
