@@ -10,12 +10,12 @@ namespace Tests\Matomo\Cache\Backend;
 
 use Matomo\Cache\Backend\DefaultTimeoutDecorated;
 use Matomo\Cache\Backend\NullCache;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Matomo\Cache\Backend\DefaultTimeoutDecorated
  */
-class DefaultTimeoutTest extends PHPUnit_Framework_TestCase
+class DefaultTimeoutTest extends TestCase
 {
     /**
      * @var DefaultTimeoutDecorated
