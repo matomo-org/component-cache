@@ -10,12 +10,12 @@ namespace Tests\Matomo\Cache\Backend;
 
 use Matomo\Cache\Backend\KeyPrefixDecorated;
 use Matomo\Cache\Backend\NullCache;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Matomo\Cache\Backend\KeyPrefixDecorated
  */
-class KeyPrefixTest extends PHPUnit_Framework_TestCase
+class KeyPrefixTest extends TestCase
 {
     /**
      * @var KeyPrefixDecorated
