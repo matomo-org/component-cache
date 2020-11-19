@@ -32,7 +32,7 @@ class KeyPrefixTest extends TestCase
 
     public function setUp()
     {
-        $this->backendMock = $this->getMock(NullCache::class);
+        $this->backendMock = $this->getMockBuilder(NullCache::class)->getMock();
 
 
         $opts = ['keyPrefix'=>$this->keyPrefix];
