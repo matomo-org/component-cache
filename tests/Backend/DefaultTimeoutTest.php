@@ -32,7 +32,7 @@ class DefaultTimeoutTest extends TestCase
 
     public function setUp()
     {
-        $this->backendMock = $this->getMock(NullCache::class);
+        $this->backendMock = $this->getMockBuilder(NullCache::class)->getMock();
 
         $opts = ['defaultTimeout'=>$this->defaultTTl];
 
