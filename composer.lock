@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "db4a0147a6469ac7376d7d4d8c92e796",
+    "content-hash": "a2566d63f47949d9c6e683f1226d672f",
     "packages": [
         {
             "name": "doctrine/cache",
-            "version": "1.10.2",
+            "version": "dev-1.10.2-modified",
             "source": {
                 "type": "git",
-                "url": "https://github.com/doctrine/cache.git",
-                "reference": "13e3381b25847283a91948d04640543941309727"
+                "url": "https://github.com/matomo-org/cache.git",
+                "reference": "64cc917584af2ad7d6b895b714fcc008a68328bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/13e3381b25847283a91948d04640543941309727",
-                "reference": "13e3381b25847283a91948d04640543941309727",
+                "url": "https://api.github.com/repos/matomo-org/cache/zipball/64cc917584af2ad7d6b895b714fcc008a68328bb",
+                "reference": "64cc917584af2ad7d6b895b714fcc008a68328bb",
                 "shasum": ""
             },
             "require": {
@@ -47,7 +47,11 @@
                     "Doctrine\\Common\\Cache\\": "lib/Doctrine/Common/Cache"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Doctrine\\Tests\\": "tests/Doctrine/Tests"
+                }
+            },
             "license": [
                 "MIT"
             ],
@@ -87,24 +91,9 @@
                 "xcache"
             ],
             "support": {
-                "issues": "https://github.com/doctrine/cache/issues",
-                "source": "https://github.com/doctrine/cache/tree/1.10.x"
+                "source": "https://github.com/matomo-org/cache/tree/1.10.2-modified"
             },
-            "funding": [
-                {
-                    "url": "https://www.doctrine-project.org/sponsorship.html",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://www.patreon.com/phpdoctrine",
-                    "type": "patreon"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Fcache",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2020-07-07T18:54:01+00:00"
+            "time": "2021-05-18T21:25:43+00:00"
         }
     ],
     "packages-dev": [
@@ -1722,7 +1711,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "doctrine/cache": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
