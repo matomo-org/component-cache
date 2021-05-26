@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a2566d63f47949d9c6e683f1226d672f",
+    "content-hash": "fc6191078984080d2e0fea6d63c5c435",
     "packages": [
         {
-            "name": "doctrine/cache",
-            "version": "dev-1.10.2-modified",
+            "name": "matomo/doctrine-cache-fork",
+            "version": "1.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matomo-org/cache.git",
-                "reference": "64cc917584af2ad7d6b895b714fcc008a68328bb"
+                "reference": "021cfa412520c110b096bd49d93ccb482f7b6eef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/matomo-org/cache/zipball/64cc917584af2ad7d6b895b714fcc008a68328bb",
-                "reference": "64cc917584af2ad7d6b895b714fcc008a68328bb",
+                "url": "https://api.github.com/repos/matomo-org/cache/zipball/021cfa412520c110b096bd49d93ccb482f7b6eef",
+                "reference": "021cfa412520c110b096bd49d93ccb482f7b6eef",
                 "shasum": ""
             },
             "require": {
@@ -91,9 +91,9 @@
                 "xcache"
             ],
             "support": {
-                "source": "https://github.com/matomo-org/cache/tree/1.10.2-modified"
+                "source": "https://github.com/matomo-org/cache/tree/1.10.2"
             },
-            "time": "2021-05-18T21:25:43+00:00"
+            "time": "2021-05-22T18:13:54+00:00"
         }
     ],
     "packages-dev": [
@@ -1711,9 +1711,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "doctrine/cache": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
