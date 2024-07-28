@@ -40,7 +40,7 @@ class KeyPrefixTest extends TestCase
         $this->cache = new KeyPrefixDecorated($this->backendMock, $opts);
     }
 
-    public function test_doFetch_shouldCallDecoratedWithKeyPrefix()
+    public function doFetch_shouldCallDecoratedWithKeyPrefixTest()
     {
         $this->backendMock
             ->expects($this->once())
@@ -50,7 +50,7 @@ class KeyPrefixTest extends TestCase
         $this->cache->doFetch('randomid');
     }
 
-    public function test_doContains_shouldCallDecoratedWithKeyPrefix()
+    public function doContains_shouldCallDecoratedWithKeyPrefixTest()
     {
         $this->backendMock
             ->expects($this->once())
@@ -60,7 +60,7 @@ class KeyPrefixTest extends TestCase
         $this->cache->doContains('randomid');
     }
 
-    public function test_doSave_shouldCallDecoratedWithKeyPrefix()
+    public function doSave_shouldCallDecoratedWithKeyPrefixTest()
     {
         $this->backendMock
             ->expects($this->once())
@@ -72,7 +72,7 @@ class KeyPrefixTest extends TestCase
         $this->cache->doSave('randomid', 'anyvalue');
     }
 
-    public function test_doDelete_shouldCallDecoratedWithKeyPrefix()
+    public function doDelete_shouldCallDecoratedWithKeyPrefixTest()
     {
         $this->backendMock
             ->expects($this->once())

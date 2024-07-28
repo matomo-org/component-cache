@@ -33,31 +33,31 @@ class FactoryTest extends TestCase
         $this->factory = new Factory();
     }
 
-    public function test_buildArrayCache_ShouldReturnInstanceOfArray()
+    public function buildArrayCache_ShouldReturnInstanceOfArrayTest()
     {
         $cache = $this->factory->buildArrayCache();
         $this->assertInstanceOf(ArrayCache::class, $cache);
     }
 
-    public function test_buildNullCache_ShouldReturnInstanceOfNull()
+    public function buildNullCache_ShouldReturnInstanceOfNullTest()
     {
         $cache = $this->factory->buildNullCache();
         $this->assertInstanceOf(NullCache::class, $cache);
     }
 
-    public function test_buildFileCache_ShouldReturnInstanceOfFile()
+    public function buildFileCache_ShouldReturnInstanceOfFileTest()
     {
         $cache = $this->factory->buildFileCache(array('directory' => __DIR__));
         $this->assertInstanceOf(File::class, $cache);
     }
 
-    public function test_buildChainedCache_ShouldReturnInstanceOfChained()
+    public function buildChainedCache_ShouldReturnInstanceOfChainedTest()
     {
         $cache = $this->factory->buildChainedCache(array('backends' => array()));
         $this->assertInstanceOf(Chained::class, $cache);
     }
 
-    public function test_buildBackend_Chained_ShouldActuallyCreateInstancesOfNestedBackends()
+    public function buildBackend_Chained_ShouldActuallyCreateInstancesOfNestedBackendsTest()
     {
         $options = array(
             'backends' => array('array', 'file'),
@@ -74,7 +74,7 @@ class FactoryTest extends TestCase
         $this->assertInstanceOf(File::class, $backends[1]);
     }
 
-    public function test_buildRedisCache_ShouldReturnInstanceOfRedis()
+    public function buildRedisCache_ShouldReturnInstanceOfRedisTest()
     {
         $this->skipTestIfRedisIsNotInstalled();
 
@@ -82,7 +82,7 @@ class FactoryTest extends TestCase
         $this->assertInstanceOf(Redis::class, $cache);
     }
 
-    public function test_buildBackend_Redis_ShouldReturnInstanceOfRedis()
+    public function buildBackend_Redis_ShouldReturnInstanceOfRedisTest()
     {
         $this->skipTestIfRedisIsNotInstalled();
 
@@ -92,7 +92,7 @@ class FactoryTest extends TestCase
         $this->assertInstanceOf(Redis::class, $cache);
     }
 
-    public function test_buildBackend_Redis_ShouldForwardOptionsToRedisInstance()
+    public function buildBackend_Redis_ShouldForwardOptionsToRedisInstanceTest()
     {
         $this->skipTestIfRedisIsNotInstalled();
 
@@ -108,45 +108,45 @@ class FactoryTest extends TestCase
         $this->assertEquals(5, $redis->getDBNum());
     }
 
-    public function test_buildRedisCache_ShouldFail_IfPortIsMissing()
+    public function buildRedisCache_ShouldFail_IfPortIsMissingTest()
     {
         self::expectException(\InvalidArgumentException::class);
         self::expectExceptionMessage('RedisCache is not configured');
         $this->factory->buildRedisCache(array('host' => '127.0.0.1'));
     }
 
-    public function test_buildRedisCache_ShouldFail_IfHostIsMissing()
+    public function buildRedisCache_ShouldFail_IfHostIsMissingTest()
     {
         self::expectException(\InvalidArgumentException::class);
         self::expectExceptionMessage('RedisCache is not configured');
         $this->factory->buildRedisCache(array('port' => '6379'));
     }
 
-    public function test_buildBackend_ArrayCache_ShouldReturnInstanceOfArray()
+    public function buildBackend_ArrayCache_ShouldReturnInstanceOfArrayTest()
     {
         $cache = $this->factory->buildBackend('array', array());
         $this->assertInstanceOf(ArrayCache::class, $cache);
     }
 
-    public function test_buildBackend_NullCache_ShouldReturnInstanceOfNull()
+    public function buildBackend_NullCache_ShouldReturnInstanceOfNullTest()
     {
         $cache = $this->factory->buildBackend('null', array());
         $this->assertInstanceOf(NullCache::class, $cache);
     }
 
-    public function test_buildBackend_FileCache_ShouldReturnInstanceOfFile()
+    public function buildBackend_FileCache_ShouldReturnInstanceOfFileTest()
     {
         $cache = $this->factory->buildBackend('file', array('directory' => __DIR__));
         $this->assertInstanceOf(File::class, $cache);
     }
 
-    public function test_buildBackend_Chained_ShouldReturnInstanceOfChained()
+    public function buildBackend_Chained_ShouldReturnInstanceOfChainedTest()
     {
         $cache = $this->factory->buildBackend('chained', array('backends' => array()));
         $this->assertInstanceOf(Chained::class, $cache);
     }
 
-    public function test_buildBackend_ShouldThrowException_IfInvalidTypeGiven()
+    public function buildBackend_ShouldThrowException_IfInvalidTypeGivenTest()
     {
         self::expectException(\Matomo\Cache\Backend\Factory\BackendNotFoundException::class);
         $this->factory->buildBackend('noTValId', array());
@@ -160,10 +160,10 @@ class FactoryTest extends TestCase
     }
 
 
-    public function test_buildBackend_Chained_ShouldCreateInstancesOfNestedDecorators()
+    public function buildBackend_Chained_ShouldCreateInstancesOfNestedDecoratorsTest()
     {}
 
-    public function test_buildBackend_Decorated_DefaultTimeoutDecorated_ShouldActuallyCreateInstanceOfNestedBackend()
+    public function buildBackend_Decorated_DefaultTimeoutDecorated_ShouldActuallyCreateInstanceOfNestedBackendTest()
     {
         $options = array(
             'backend' => 'array',
@@ -179,7 +179,7 @@ class FactoryTest extends TestCase
         $this->assertInstanceOf(ArrayCache::class, $backend);
     }
 
-    public function test_buildBackend_Decorated_KeyPrefixDecorated_ShouldActuallyCreateInstanceOfNestedBackend()
+    public function buildBackend_Decorated_KeyPrefixDecorated_ShouldActuallyCreateInstanceOfNestedBackendTest()
     {
         $options = array(
             'backend' => 'array',

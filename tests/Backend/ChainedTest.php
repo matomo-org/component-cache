@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 class ChainedTest extends TestCase
 {
 
-    public function test_constructor_getbackends_shouldMakeSureToHaveProperIndex()
+    public function constructor_getbackends_shouldMakeSureToHaveProperIndexTest()
     {
         $arrayCache = new ArrayCache();
         $nullCache  = new NullCache();
@@ -31,7 +31,7 @@ class ChainedTest extends TestCase
         $this->assertEquals(array($arrayCache, $nullCache), $result);
     }
 
-    public function test_doFetch_shouldPopulateOtherCaches()
+    public function doFetch_shouldPopulateOtherCachesTest()
     {
         $cacheId = 'myid';
         $cacheValue = 'mytest';

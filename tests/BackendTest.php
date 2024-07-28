@@ -46,6 +46,7 @@ class BackendTest extends TestCase
     /**
      * @dataProvider getBackends
      */
+     #[\PHPUnit\Framework\Attributes\DataProvider('getBackends')]
     public function test_doFetch_shouldReturnFalse_IfNoSuchCacheIdExists(Backend $backend)
     {
         $this->assertFalse($backend->doFetch('randomid'));
@@ -54,6 +55,7 @@ class BackendTest extends TestCase
     /**
      * @dataProvider getBackends
      */
+     #[\PHPUnit\Framework\Attributes\DataProvider('getBackends')]
     public function test_doFetch_shouldReturnTheCachedValue_IfCacheIdExists(Backend $backend)
     {
         $this->assertEquals($this->cacheValue, $backend->doFetch($this->cacheId));
@@ -62,6 +64,7 @@ class BackendTest extends TestCase
     /**
      * @dataProvider getBackends
      */
+     #[\PHPUnit\Framework\Attributes\DataProvider('getBackends')]
     public function test_doContains_shouldReturnFalse_IfNoSuchCacheIdExists(Backend $backend)
     {
         $this->assertFalse($backend->doContains('randomid'));
@@ -70,6 +73,7 @@ class BackendTest extends TestCase
     /**
      * @dataProvider getBackends
      */
+     #[\PHPUnit\Framework\Attributes\DataProvider('getBackends')]
     public function test_doContains_shouldReturnTrue_IfCacheIdExists(Backend $backend)
     {
         $this->assertTrue($backend->doContains($this->cacheId));
@@ -78,6 +82,7 @@ class BackendTest extends TestCase
     /**
      * @dataProvider getBackends
      */
+     #[\PHPUnit\Framework\Attributes\DataProvider('getBackends')]
     public function test_doDelete_shouldReturnTrue_OnSuccess(Backend $backend)
     {
         $this->assertTrue($backend->doDelete($this->cacheId));
@@ -86,6 +91,7 @@ class BackendTest extends TestCase
     /**
      * @dataProvider getBackends
      */
+     #[\PHPUnit\Framework\Attributes\DataProvider('getBackends')]
     public function test_doDelete_shouldActuallyDeleteCacheId(Backend $backend)
     {
         $this->assertHasCacheEntry($backend, $this->cacheId);
@@ -98,6 +104,7 @@ class BackendTest extends TestCase
     /**
      * @dataProvider getBackends
      */
+     #[\PHPUnit\Framework\Attributes\DataProvider('getBackends')]
     public function test_doDelete_shouldNotDeleteAnyOtherCacheIds(Backend $backend)
     {
         $backend->doSave('anyother', 'myvalue');
@@ -111,6 +118,7 @@ class BackendTest extends TestCase
     /**
      * @dataProvider getBackends
      */
+     #[\PHPUnit\Framework\Attributes\DataProvider('getBackends')]
     public function test_doDelete_shouldNotFail_IfCacheEntryDoesNotExist(Backend $backend)
     {
         $success = $backend->doDelete('anYRandoOmId');
@@ -121,6 +129,7 @@ class BackendTest extends TestCase
     /**
      * @dataProvider getBackends
      */
+     #[\PHPUnit\Framework\Attributes\DataProvider('getBackends')]
     public function test_doSave_shouldOverwriteAnyValue_IfCacheIdAlreadyExists(Backend $backend)
     {
         $this->assertHasCacheEntry($backend, $this->cacheId);
@@ -134,6 +143,7 @@ class BackendTest extends TestCase
     /**
      * @dataProvider getBackends
      */
+     #[\PHPUnit\Framework\Attributes\DataProvider('getBackends')]
     public function test_doSave_shouldBeAbleToSetArrays(Backend $backend)
     {
         $value = array('anyotherE' => 'anyOtherValUE', 1 => array(2));
@@ -145,6 +155,7 @@ class BackendTest extends TestCase
     /**
      * @dataProvider getBackends
      */
+     #[\PHPUnit\Framework\Attributes\DataProvider('getBackends')]
     public function test_doSave_shouldBeAbleToSetNumbers(Backend $backend)
     {
         $value = 5.4;
@@ -156,6 +167,7 @@ class BackendTest extends TestCase
     /**
      * @dataProvider getBackends
      */
+     #[\PHPUnit\Framework\Attributes\DataProvider('getBackends')]
     public function test_doFlush_shouldRemoveAllCacheIds(Backend $backend)
     {
         $this->assertHasCacheEntry($backend, $this->cacheId);
@@ -168,7 +180,7 @@ class BackendTest extends TestCase
         $this->assertHasNotCacheEntry($backend, 'mykey');
     }
 
-    public function getBackends()
+    public static function getBackends()
     {
         if (!empty(self::$backends)) {
             return self::$backends;
@@ -178,9 +190,9 @@ class BackendTest extends TestCase
         $backends = array();
 
         $arrayCache = new ArrayCache();
-        $fileCache  = new File($this->getPathToCacheDir());
+        $fileCache  = new File(self::getPathToCacheDir());
 
-        $chainedFileCache = new File( $this->getPathToCacheDir() . '/chain' );
+        $chainedFileCache = new File( self::getPathToCacheDir() . '/chain' );
         $chainCache = new Chained( array(new ArrayCache(), $chainedFileCache) );
 
         $timeoutDecorated = new Backend\DefaultTimeoutDecorated( new ArrayCache(), ['defaultTimeout' => 8866] );
@@ -204,7 +216,7 @@ class BackendTest extends TestCase
         return self::$backends;
     }
 
-    private function getPathToCacheDir()
+    private static function getPathToCacheDir()
     {
         return __DIR__ . '/tmp';
     }

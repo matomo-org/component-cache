@@ -30,32 +30,32 @@ class TransientTest extends TestCase
         $this->cache->save($this->cacheId, $this->cacheValue);
     }
 
-    public function test_fetch_shouldReturnFalse_IfNoSuchCacheIdExists()
+    public function fetch_shouldReturnFalse_IfNoSuchCacheIdExistsTest()
     {
         $this->assertFalse($this->cache->fetch('randomid'));
     }
 
-    public function test_fetch_shouldReturnTheCachedValue_IfCacheIdExists()
+    public function fetch_shouldReturnTheCachedValue_IfCacheIdExistsTest()
     {
         $this->assertEquals($this->cacheValue, $this->cache->fetch($this->cacheId));
     }
 
-    public function test_contains_shouldReturnFalse_IfNoSuchCacheIdExists()
+    public function contains_shouldReturnFalse_IfNoSuchCacheIdExistsTest()
     {
         $this->assertFalse($this->cache->contains('randomid'));
     }
 
-    public function test_contains_shouldReturnTrue_IfCacheIdExists()
+    public function contains_shouldReturnTrue_IfCacheIdExistsTest()
     {
         $this->assertTrue($this->cache->contains($this->cacheId));
     }
 
-    public function test_delete_shouldReturnTrue_OnSuccess()
+    public function delete_shouldReturnTrue_OnSuccessTest()
     {
         $this->assertTrue($this->cache->delete($this->cacheId));
     }
 
-    public function test_delete_shouldActuallyDeleteCacheId()
+    public function delete_shouldActuallyDeleteCacheIdTest()
     {
         $this->assertHasCacheEntry($this->cacheId);
 
@@ -64,7 +64,7 @@ class TransientTest extends TestCase
         $this->assertHasNotCacheEntry($this->cacheId);
     }
 
-    public function test_delete_shouldNotDeleteAnyOtherCacheIds()
+    public function delete_shouldNotDeleteAnyOtherCacheIdsTest()
     {
         $this->cache->save('anyother', 'myvalue');
         $this->assertHasCacheEntry($this->cacheId);
@@ -74,7 +74,7 @@ class TransientTest extends TestCase
         $this->assertHasCacheEntry('anyother');
     }
 
-    public function test_save_shouldOverwriteAnyValue_IfCacheIdAlreadyExists()
+    public function save_shouldOverwriteAnyValue_IfCacheIdAlreadyExistsTest()
     {
         $this->assertHasCacheEntry($this->cacheId);
 
@@ -84,7 +84,7 @@ class TransientTest extends TestCase
         $this->assertSame($value, $this->cache->fetch($this->cacheId));
     }
 
-    public function test_save_shouldBeAbleToSetArrays()
+    public function save_shouldBeAbleToSetArraysTest()
     {
         $value = array('anyotherE' => 'anyOtherValUE', 1 => array(2));
         $this->cache->save($this->cacheId, $value);
@@ -92,7 +92,7 @@ class TransientTest extends TestCase
         $this->assertSame($value, $this->cache->fetch($this->cacheId));
     }
 
-    public function test_save_shouldBeAbleToSetObjects()
+    public function save_shouldBeAbleToSetObjectsTest()
     {
         $value = (object) array('anyotherE' => 'anyOtherValUE', 1 => array(2));
         $this->cache->save($this->cacheId, $value);
@@ -100,7 +100,7 @@ class TransientTest extends TestCase
         $this->assertSame($value, $this->cache->fetch($this->cacheId));
     }
 
-    public function test_save_shouldBeAbleToSetNumbers()
+    public function save_shouldBeAbleToSetNumbersTest()
     {
         $value = 5.4;
         $this->cache->save($this->cacheId, $value);
@@ -108,7 +108,7 @@ class TransientTest extends TestCase
         $this->assertSame($value, $this->cache->fetch($this->cacheId));
     }
 
-    public function test_flush_shouldRemoveAllCacheIds()
+    public function flush_shouldRemoveAllCacheIdsTest()
     {
         $this->assertHasCacheEntry($this->cacheId);
         $this->cache->save('mykey', 'myvalue');
