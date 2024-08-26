@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Matomo\Cache\Backend\File
  */
- #[\PHPUnit\Framework\Attributes\CoversClass(File::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(File::class)]
 class FileTest extends TestCase
 {
     /**

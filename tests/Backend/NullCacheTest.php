@@ -14,6 +14,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Matomo\Cache\Backend\NullCache
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(NullCache::class)]
 class NullCacheTest extends TestCase
 {
     /**

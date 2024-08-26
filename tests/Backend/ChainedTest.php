@@ -16,6 +16,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Matomo\Cache\Backend\Chained
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(Chained::class)]
 class ChainedTest extends TestCase
 {
 

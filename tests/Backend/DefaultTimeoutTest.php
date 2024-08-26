@@ -15,6 +15,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Matomo\Cache\Backend\DefaultTimeoutDecorated
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(DefaultTimeoutDecorated::class)]
 class DefaultTimeoutTest extends TestCase
 {
     /**
