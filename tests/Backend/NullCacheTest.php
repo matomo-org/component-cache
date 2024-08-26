@@ -29,27 +29,27 @@ class NullCacheTest extends TestCase
         $this->cache->doSave($this->cacheId, 'anyvalue', 100);
     }
 
-    public function doSave_shouldAlwaysReturnTrueTest()
+    public function test_doSave_shouldAlwaysReturnTrue()
     {
         $this->assertTrue($this->cache->doSave('randomid', 'anyvalue', 100));
     }
 
-    public function doFetch_shouldAlwaysReturnFalse_EvenIfSomethingWasSetTest()
+    public function test_doFetch_shouldAlwaysReturnFalse_EvenIfSomethingWasSet()
     {
         $this->assertFalse($this->cache->doFetch($this->cacheId));
     }
 
-    public function doContains_shouldAlwaysReturnFalse_EvenIfSomethingWasSetTest()
+    public function test_doContains_shouldAlwaysReturnFalse_EvenIfSomethingWasSet()
     {
         $this->assertFalse($this->cache->doContains($this->cacheId));
     }
 
-    public function doDelete_shouldAlwaysPretendItWorked_EvenIfNoSuchKeyExistsTest()
+    public function test_doDelete_shouldAlwaysPretendItWorked_EvenIfNoSuchKeyExists()
     {
         $this->assertTrue($this->cache->doDelete('loremipsum'));
     }
 
-    public function doFlush_shouldAlwaysPretendItWorkedTest()
+    public function test_doFlush_shouldAlwaysPretendItWorked()
     {
         $this->assertTrue($this->cache->doFlush());
     }

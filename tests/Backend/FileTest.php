@@ -57,7 +57,7 @@ class FileTest extends TestCase
         return $path;
     }
 
-    public function doSave_shouldCreateDirectoryWith750Permission_IfWritingIntoNewDirectoryTest()
+    public function test_doSave_shouldCreateDirectoryWith750Permission_IfWritingIntoNewDirectory()
     {
         $namespace = 'test';
 
@@ -68,14 +68,14 @@ class FileTest extends TestCase
         $file->flushAll();
     }
 
-    public function doSave_shouldCreateFileTest()
+    public function test_doSave_shouldCreateFile()
     {
         $this->cache->doSave('myidtest', 'myvalue');
 
         $this->assertFileExists(self::getPath('', 'myidtest'));
     }
 
-    public function doSave_shouldSetLifeTimeTest()
+    public function test_doSave_shouldSetLifeTime()
     {
         $this->cache->doSave('myidtest', 'myvalue', 500);
 
@@ -87,7 +87,7 @@ class FileTest extends TestCase
         $this->assertLessThan(time() + 550, $contents['lifetime']);
     }
 
-    public function doFetch_ParseErrorTest()
+    public function test_doFetch_ParseError()
     {
         $test = $this->cache->getFilename('foo');
         file_put_contents($test, '<?php echo $dat
