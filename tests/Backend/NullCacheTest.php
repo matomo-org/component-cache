@@ -23,7 +23,7 @@ class NullCacheTest extends TestCase
 
     private $cacheId = 'testid';
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->cache = new NullCache();
         $this->cache->doSave($this->cacheId, 'anyvalue', 100);

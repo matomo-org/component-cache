@@ -25,7 +25,7 @@ class LazyTest extends TestCase
     private $cacheId = 'testid';
     private $cacheValue = 'exampleValue';
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $backend = new ArrayCache();
         $this->cache = new Lazy($backend);

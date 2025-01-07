@@ -30,7 +30,7 @@ class KeyPrefixTest extends TestCase
 
     private $keyPrefix = 'somePrefix';
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->backendMock = $this->getMockBuilder(NullCache::class)->getMock();
 

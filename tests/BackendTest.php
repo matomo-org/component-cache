@@ -23,7 +23,7 @@ class BackendTest extends TestCase
 
     private static $backends = array();
 
-    protected function setUp()
+    protected function setUp(): void
     {
         foreach (self::$backends as $backend) {
             /** @var Backend[] $backend */
@@ -33,7 +33,7 @@ class BackendTest extends TestCase
         }
     }
 
-    public static function tearDownAfterClass()
+    public static function tearDownAfterClass(): void
     {
         foreach (self::$backends as $backend) {
             /** @var Backend[] $backend */

@@ -23,13 +23,13 @@ class FileTest extends TestCase
 
     private $cacheId = 'testid';
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->cache = $this->createFileCache();
         $this->cache->doSave($this->cacheId, 'anyvalue', 100);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->cache->flushAll();
     }

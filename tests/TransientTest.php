@@ -24,7 +24,7 @@ class TransientTest extends TestCase
     private $cacheId = 'testid';
     private $cacheValue = 'exampleValue';
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->cache = new Transient();
         $this->cache->save($this->cacheId, $this->cacheValue);

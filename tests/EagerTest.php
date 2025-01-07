@@ -32,7 +32,7 @@ class EagerTest extends TestCase
     private $cacheId    = 'testid';
     private $cacheValue = 'exampleValue';
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->backend = new ArrayCache();
         $this->backend->doSave($this->storageId, array($this->cacheId => $this->cacheValue));
