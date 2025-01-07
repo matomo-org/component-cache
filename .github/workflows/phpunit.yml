@@ -20,6 +20,10 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
+      - name: start redis serivces
+        shell: bash
+        run: |
+          docker run -d --name redis -e ALLOW_EMPTY_PASSWORD=yes -p 6379:6379 bitnami/redis:latest
       - name: Composer install
         run: composer install
       - name: PHPUnit / PHP ${{ matrix.php-version }}
