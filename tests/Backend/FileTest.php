@@ -14,6 +14,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Matomo\Cache\Backend\File
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(File::class)]
 class FileTest extends TestCase
 {
     /**
@@ -36,12 +37,12 @@ class FileTest extends TestCase
 
     private function createFileCache($namespace = '')
     {
-        $path = $this->getPath($namespace);
+        $path = self::getPath($namespace);
 
         return new File($path);
     }
 
-    private function getPath($namespace = '', $id = '')
+    private static function getPath($namespace = '', $id = '')
     {
         $path = __DIR__ . '/../tmp';
 
@@ -63,7 +64,7 @@ class FileTest extends TestCase
         $file = $this->createFileCache($namespace);
         $file->doSave('myidtest', 'myvalue');
 
-        $this->assertDirectoryExists($this->getPath($namespace));
+        $this->assertDirectoryExists(self::getPath($namespace));
         $file->flushAll();
     }
 
@@ -71,14 +72,14 @@ class FileTest extends TestCase
     {
         $this->cache->doSave('myidtest', 'myvalue');
 
-        $this->assertFileExists($this->getPath('', 'myidtest'));
+        $this->assertFileExists(self::getPath('', 'myidtest'));
     }
 
     public function test_doSave_shouldSetLifeTime()
     {
         $this->cache->doSave('myidtest', 'myvalue', 500);
 
-        $path =  $this->getPath('', 'myidtest');
+        $path =  self::getPath('', 'myidtest');
 
         $contents = include $path;
 
@@ -98,14 +99,15 @@ class FileTest extends TestCase
     /**
      * @dataProvider getTestDataForGetFilename
      */
+     #[\PHPUnit\Framework\Attributes\DataProvider('getTestDataForGetFilename')]
     public function test_getFilename_shouldConstructFilenameFromId($id, $expectedFilename)
     {
         $this->assertEquals($expectedFilename, $this->cache->getFilename($id));
     }
 
-    public function getTestDataForGetFilename()
+    public static function getTestDataForGetFilename()
     {
-        $dir = realpath($this->getPath());
+        $dir = realpath(self::getPath());
 
         return [
             ['genericid', $dir . '/genericid.php'],

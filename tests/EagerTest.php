@@ -16,6 +16,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Matomo\Cache\Eager
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(Eager::class)]
 class EagerTest extends TestCase
 {
     /**

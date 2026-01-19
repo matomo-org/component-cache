@@ -12,10 +12,11 @@ jobs:
     name: PHPUnit
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        php-version: ['7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3', '8.4']
+        php-version: ['7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3', '8.4', '8.5']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -27,9 +28,8 @@ jobs:
       - name: Composer install
         run: composer install
       - name: use newer phpunit if needed
-        if: ${{ matrix.php-version >= 8.0 }}
         run: |
-          composer remove --dev phpunit/phpunit
-          composer require --dev phpunit/phpunit ~9.3 --ignore-platform-reqs
+          composer config --unset platform.php
+          composer update
       - name: PHPUnit / PHP ${{ matrix.php-version }}
         run: ./vendor/bin/phpunit

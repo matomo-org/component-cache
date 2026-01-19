@@ -15,6 +15,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Matomo\Cache\Lazy
  */
+ #[\PHPUnit\Framework\Attributes\CoversClass(Lazy::class)]
 class LazyTest extends TestCase
 {
     /**
@@ -42,6 +43,7 @@ class LazyTest extends TestCase
     /**
      * @dataProvider getInvalidCacheIds
      */
+     #[\PHPUnit\Framework\Attributes\DataProvider('getInvalidCacheIds')]
     public function test_shouldFail_IfCacheIdIsInvalid($method, $id)
     {
         self::expectException(\InvalidArgumentException::class);
@@ -52,6 +54,7 @@ class LazyTest extends TestCase
     /**
      * @dataProvider getValidCacheIds
      */
+     #[\PHPUnit\Framework\Attributes\DataProvider('getValidCacheIds')]
     public function test_shouldNotFail_IfCacheIdIsValid($method, $id)
     {
         $this->executeMethodOnCache($method, $id);
@@ -170,7 +173,7 @@ class LazyTest extends TestCase
         $this->assertFalse($this->cache->contains($cacheId));
     }
 
-    public function getInvalidCacheIds()
+    public static function getInvalidCacheIds()
     {
         $ids = array();
         $methods = array('fetch', 'save', 'contains', 'delete');
@@ -189,7 +192,7 @@ class LazyTest extends TestCase
         return $ids;
     }
 
-    public function getValidCacheIds()
+    public static function getValidCacheIds()
     {
         $ids = array();
         $methods = array('fetch', 'save', 'contains', 'delete');

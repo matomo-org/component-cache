@@ -21,6 +21,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Matomo\Cache\Backend\Factory
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(Factory::class)]
 class FactoryTest extends TestCase
 {
     /**

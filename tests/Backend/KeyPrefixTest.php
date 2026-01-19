@@ -15,6 +15,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Matomo\Cache\Backend\KeyPrefixDecorated
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(KeyPrefixDecorated::class)]
 class KeyPrefixTest extends TestCase
 {
     /**

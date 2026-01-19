@@ -14,6 +14,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Matomo\Cache\Transient
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(Transient::class)]
 class TransientTest extends TestCase
 {
     /**
